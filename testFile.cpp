@@ -4,11 +4,17 @@
 
 using namespace std;
 
+void printWords(const vector<string> msg);
+
 int main()
 {
-    vector<string> msg {"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!"};
+    vector<string> msg{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!"};
+    printWords(msg);
+}
 
-    for (const string& word : msg)
+void printWords(const vector<string> msg)
+{
+    for (const string &word : msg)
     {
         cout << word << " ";
     }
