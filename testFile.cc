@@ -14,7 +14,7 @@ int main()
 
 void printWords(const vector<string> msg)
 {
-    for (const string &word : msg)
+    for (const string& word : msg)
     {
         cout << word << " ";
     }

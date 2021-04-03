@@ -5,7 +5,7 @@
 #include <set>
 #include <map>
 #include <algorithm>
-#include <boost/regex.hpp>
+#include <regex>
 
 using namespace std;
 
@@ -13,6 +13,9 @@ Obfuscator::Obfuscator(string oFP, string tFP)
 {
     this->originalFilePath = oFP;
     this->targetFilePath = tFP;
+    
+    this->testFile.open("../../" + originalFilePath, fstream::in);
+    this->obfuscatedFile.open("../../" + targetFilePath , fstream::out | fstream::trunc);
 }
 
 void Obfuscator::clearEnters(string originalFilePath, string targetFilePath)
@@ -49,57 +52,32 @@ void Obfuscator::clearEnters(string originalFilePath, string targetFilePath)
     obfuscatedFile.close();
 }
 
-void Obfuscator::spaceCleaning(string line)
-{
-    set<string> keyWords{"int", "float", "string", "short", "long", "unsigned",
-                         "double", "char", "bool", "using", "namespace"};
-    set<size_t> savedSpaces;
-    for (auto it = keyWords.begin(); it != keyWords.end(); ++it)
-    {
-        if (line.find(*it) != string::npos)
-            savedSpaces.insert(line.find(*it) + (*it).length());
-        cout << *it << " ";
-    }
-    int pos = 0;
-    do
-    {
-        size_t place = line.find(' ', pos);
-        pos = place + 1;
-        cout << pos << endl;
-        if (savedSpaces.find(place) == savedSpaces.end())
-            line.erase(line.begin() + place);
-        // for_each(begin(savedSpaces), end(savedSpaces), [](size_t x){return x-1;});
-        // cout << place+' ';
-        // transform(begin(savedSpaces),end(savedSpaces),begin(savedSpaces),[](size_t
-        // x){if(x>0)return x-1; else return x;});
-
-    } while (line.find(' ', pos) != string::npos);
-}
 void Obfuscator::changeVariablenames()
 {
-    ifstream testFile("../../" + originalFilePath);
-    fstream obfuscatedFile("../../" + targetFilePath);
     string code = "start reading";
     string toReplace = "word";
 
     map<string, string> variables;
     set<string> keyVariableWords{"int", "float", "string", "short", "long",
-                         "double", "char", "bool"};
+                                 "double", "char", "bool"};
 
     bool catchVariable = false;
     string variableName;
+    regex mainFunctionReg("(main())");
+    regex anyFun("(.*)(\\(.*\\);)");
+    smatch m, n;
+
     int i = 1;
     while (testFile >> code)
     {
-
         if (catchVariable)
         {
             if (variables.find(code) == variables.end())
             {
-                if (code.compare("main()") != 0)
+                if (!regex_search(code, m, mainFunctionReg))
                 {
                     variableName = code;
-                    code = "weirdName" + to_string(i);
+                    code = "weirdName8" + to_string(i);
                     variables[variableName] = code;
                     ++i;
                 }
@@ -108,6 +86,7 @@ void Obfuscator::changeVariablenames()
         }
         for (auto it = keyVariableWords.begin(); it != keyVariableWords.end(); ++it)
         {
+            // regex variableRegex(*it||*it+"\\s+")
             if (code.compare(*it) == 0 || code.compare(*it + "&") == 0)
                 catchVariable = true;
         }
@@ -127,6 +106,34 @@ void Obfuscator::changeVariablenames()
         else
             obfuscatedFile << code << ' ';
     }
+}
+
+void Obfuscator::changeFunctionNames(){
+    string code;
+    map<string, string> variables;
+    set<string> keyVariableWords{"int", "float", "string", "short", "long",
+                                 "double", "char", "bool", "void"};
+    bool catchFuncion = false;
+    smatch m;
+    while(getline(testFile,code)){
+        
+        obfuscatedFile << "code: " << code << endl;
+        for (auto it = keyVariableWords.begin(); it != keyVariableWords.end(); ++it)
+        {
+            regex variableRegex(*it+"\\s+\\w+\\(*");
+            // cout << "- ";
+            while (regex_search(code,m,variableRegex))
+            {
+                for(auto x:m)
+                    obfuscatedFile << x << " ";
+                code = m.suffix().str();
+                obfuscatedFile << "New iteration:" << endl;
+            }
+                
+        }
+    }
+
+    
 }
 
 void Obfuscator::setOriginalFilePath(string path)
