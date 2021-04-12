@@ -4,8 +4,18 @@ project(NonASTObfuscation VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_executable(main main.cc obfuscator.h obfuscator.cc)
+
+add_executable(main main.cc obfuscator/obfuscator.cc obfuscator/sourcesController.cc)
 add_executable(originalCode testFile.cc)
+
+
+# Locate GTest
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+ 
+# Link runTests with what we want to test and the GTest and pthread library
+add_executable(runTests test/obfuscationTests.cc obfuscator/obfuscator.cc obfuscator/sourcesController.cc)
+target_link_libraries(runTests ${GTEST_LIBRARIES} pthread)
 
 set_target_properties(main
     PROPERTIES 

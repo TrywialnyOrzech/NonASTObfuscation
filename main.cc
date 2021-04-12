@@ -1,14 +1,25 @@
 #include <iostream>
 #include <string>
 #include <regex>
-#include "obfuscator.h"
+#include "obfuscator/obfuscator.h"
 
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
-    Obfuscator obfuscator("testFile.cc","obfuscatedFile.cc");
-    // obfuscator.changeVariablenames();
-    obfuscator.changeFunctionNames();
+    Obfuscator obfuscator;
+    size_t num_of_args = sizeof(argv)/sizeof(argv[0]);
+    if(num_of_args > 1){
+        string sourceName = argv[1];
+        obfuscator.setOriginalFilePath(argv[1]);
+        if(num_of_args > 2){
+            string targetName = argv[2];
+            obfuscator.setTargetFilePath(argv[2]);
+        }
+    }
+    obfuscator.init();
+    // obfuscator.clearEnters();
+    obfuscator.changeVariablenames();
+    // obfuscator.changeFunctionNames();
     return 0;
 }
