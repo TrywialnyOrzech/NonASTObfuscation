@@ -40,7 +40,7 @@ void Obfuscator::clearEnters()
     targetFile.close();
 }
 
-void Obfuscator::changeVariablenames()
+void Obfuscator::changeVariablesNames()
 {
     string code = "start reading";
     string toReplace = "word";
@@ -53,6 +53,7 @@ void Obfuscator::changeVariablenames()
     string variableName;
     regex mainFunctionReg("(main())");
     regex anyFun("(.*)(\\(.*\\);)");
+    regex varNameOnly("(;$)|$");
     smatch m, n;
 
     int i = 1;
@@ -62,10 +63,12 @@ void Obfuscator::changeVariablenames()
         {
             if (variables.find(code) == variables.end())
             {
+                if (regex_match(code,m,varNameOnly))
+                   for (auto x:m) cout << "srednik" << x << " ";
                 if (!regex_search(code, m, mainFunctionReg))
                 {
                     variableName = code;
-                    code = "tgdxdthxdthxdthfjxdhtxdthxdgxdtgxhjk" + to_string(i);
+                    code = "regexTest" + to_string(i);
                     variables[variableName] = code;
                     ++i;
                 }
@@ -74,9 +77,12 @@ void Obfuscator::changeVariablenames()
         }
         for (auto it = keyVariableWords.begin(); it != keyVariableWords.end(); ++it)
         {
-            // regex variableRegex(*it||*it+"\\s+")
-            if (code.compare(*it) == 0 || code.compare(*it + "&") == 0)
+            const regex varRegex("("+*it+")|("+*it+"&)");
+            if (regex_match(code,m,varRegex)){
+                for (auto x:m) cout << x << " ";
                 catchVariable = true;
+                cout << endl;
+            }
         }
         for (const auto &[original, toChange] : variables)
         {
@@ -94,6 +100,9 @@ void Obfuscator::changeVariablenames()
         else
             targetFile << code << ' ';
     }
+    for(auto x : variables)
+        cout << x.first << ' ' << x.second << endl;
+    
 }
 
 void Obfuscator::changeFunctionNames(){

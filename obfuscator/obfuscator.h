@@ -12,7 +12,7 @@ public:
 
     void spaceCleaning(std::string line);
 
-    void changeVariablenames();
+    void changeVariablesNames();
 
     void changeFunctionNames();
 
@@ -23,6 +23,7 @@ public:
     std::string getOriginalFilePath();
 
     std::string getTargetFilePath();
+
 };
 
 #endif

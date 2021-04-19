@@ -6,6 +6,9 @@ using namespace std;
 
 void printWords(const vector<string> msg);
 
+int globalVar;
+string globalVarString;
+
 int main()
 {
     vector<string> msg{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!"};

@@ -1,24 +1,28 @@
 #include <gtest/gtest.h>
 #include "../obfuscator/obfuscator.h"
+#include "../obfuscator/sourcesController.h"
 
+using ::testing::Test;
 
-TEST(OBFUSCATION_VERIFICATION, compile_source_file){
-    //Arrange
-    Obfuscator obf("../test/testFile.cc", "../test/dumpTestFile.cc");
-    //Act
-    obf.init();
-    //Assert
-    ASSERT_TRUE(obf.fileCompilation(obf.getOriginalFilePath()));
-    }
+class obfuscationTests : public Test{
+    protected: 
+        void SetUp() override {
+            obf = new Obfuscator("../test/testFile.cc","../test/dumpTestFile.cc");
+            obf->init(); 
+            }
+        Obfuscator* obf;
+};
 
-TEST(OBFUSCATION_VERIFICATION, compile_target_file){
-    //Arrange
-    Obfuscator obf("../test/testFile.cc", "../test/dumpTestFile.cc");
-    //Act
-    obf.init();
-    obf.clearEnters();
-    //Assert
-    ASSERT_TRUE(obf.fileCompilation(obf.getTargetFilePath()));
+TEST_F(obfuscationTests, compile_source_file){
+    ASSERT_TRUE(obf->fileCompilation(obf->getOriginalFilePath()));
+}
+
+// Very last test (deletes Obfuscator)
+TEST_F(obfuscationTests, compile_target_file){
+    obf->changeVariablesNames();
+    std::string path = obf->getTargetFilePath();
+    delete obf;
+    ASSERT_TRUE(SourcesController::fileCompilation(path));
 }
 
 int main(int argc, char **argv) {

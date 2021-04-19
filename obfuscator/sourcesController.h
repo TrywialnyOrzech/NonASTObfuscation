@@ -10,10 +10,10 @@ class SourcesController{
         void loadSourceFile(const std::string &name);
         void loadTargetFile(const std::string &name);
         void init();
-        bool fileCompilation(std::string filename);
+        static bool fileCompilation(std::string filename);
         bool prepareForObfuscation();
         void printState(std::string text);
-    
+        
     protected:
         std::string sourceName;
         std::string targetName;

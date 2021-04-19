@@ -19,7 +19,7 @@ int main(int argc, char** argv)
     }
     obfuscator.init();
     // obfuscator.clearEnters();
-    obfuscator.changeVariablenames();
+    obfuscator.changeVariablesNames();
     // obfuscator.changeFunctionNames();
     return 0;
 }
