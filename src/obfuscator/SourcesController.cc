@@ -1,19 +1,12 @@
-#include "sourcesController.h"
+#include "SourcesController.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 void SourcesController::init(){
     printState("Opening source file...");
     loadSourceFile(sourceName);
     loadTargetFile(targetName);
-    printState("Compiling source file...");
-    if(!fileCompilation(sourceName)){
-
-        cerr << "Compilation of source file failed! Provide valid file. Exitting.." << endl;
-        exit(-1);
-    }
-    else
-        cout << "   Compilation successful" << endl << endl; 
 }
 
 void SourcesController::loadSourceFile(const string &name){
@@ -31,17 +24,29 @@ void SourcesController::loadTargetFile(const string &name){
                 << name << endl; 
     }
 }
-bool SourcesController::fileCompilation(string filename){
-    string systemCall("g++ " + filename);
-    if(system(systemCall.c_str())!=0)
-        return false;
-    else
-        return true;
-}
 
 void SourcesController::printState(string text){
 
     cout << "--------------------------------------\n"
         << text << endl
         << "--------------------------------------" << endl;
+}
+
+void SourcesController::setOriginalFilePath( string path ) { sourceName = path; }
+void SourcesController::setTargetFilePath( string path ) { targetName = path; }
+
+string SourcesController::getOriginalFilePath() { return sourceName; }
+string SourcesController::getTargetFilePath() { return targetName; }
+
+string SourcesController::readWord() {
+    string result;
+    if(sourceFile >> result)
+        return result;
+    else{
+        return "";
+    }
+}
+
+void SourcesController::writeWord(string word){
+    targetFile << word;
 }

@@ -1,21 +1,13 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(NonASTObfuscation VERSION 0.1.0)
 
-include(CTest)
-enable_testing()
-
+include_directories(obfuscator)
 
 add_executable(main main.cc obfuscator/obfuscator.cc obfuscator/sourcesController.cc)
 add_executable(originalCode testFile.cc)
-
-
-# Locate GTest
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
- 
-# Link runTests with what we want to test and the GTest and pthread library
-add_executable(runTests test/obfuscationTests.cc obfuscator/obfuscator.cc obfuscator/sourcesController.cc)
-target_link_libraries(runTests ${GTEST_LIBRARIES} pthread)
+add_subdirectory(src/obfuscator)
+add_subdirectory(src/test)
+target_link_libraries(main obfuscator)
 
 set_target_properties(main
     PROPERTIES 
