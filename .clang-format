@@ -1,0 +1,17 @@
+﻿---
+BasedOnStyle: LLVM
+ContinuationIndentWidth: '0'
+Language: Cpp
+MaxEmptyLinesToKeep: '1'
+SortIncludes: 'true'
+SpaceBeforeInheritanceColon: 'true'
+SpaceBeforeParens: Never
+SpaceBeforeRangeBasedForLoopColon: 'false'
+SpaceInEmptyParentheses: 'false'
+SpacesBeforeTrailingComments: '10'
+SpacesInCStyleCastParentheses: 'false'
+SpacesInContainerLiterals: 'false'
+SpacesInParentheses: 'true'
+Standard: Cpp11
+
+...
