@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
-#include "../obfuscator/obfuscator.h"
-#include "../obfuscator/sourcesController.h"
+#include "../obfuscator/Obfuscator.h"
+#include "../obfuscator/SourcesController.h"
 
 using ::testing::Test;
 
 class obfuscationTests : public Test{
     protected: 
         void SetUp() override {
-            obf = new Obfuscator("../test/testFile.cc","../test/dumpTestFile.cc");
+            obf = new Obfuscator("../../test/testFile.cc","../../test/dumpTestFile.cc");
             obf->init(); 
             }
         Obfuscator* obf;

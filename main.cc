@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <regex>
-#include "obfuscator/obfuscator.h"
+#include "obfuscator/Obfuscator.h"
 
 using namespace std;
 
