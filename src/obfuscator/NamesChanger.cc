@@ -36,68 +36,68 @@ void NamesChanger::changeVariablesNames() {
   string toReplace = "word";
 
   map<string, string> variables;
-  set<string> keyVariableWords{"int",  "float",  "string", "short",
-                               "long", "double", "char",   "bool"};
+  set<string> keyVariableWords{ "int",  "float",  "string", "short",
+                                "long", "double", "char",   "bool" };
 
   bool catchVariable = false;
   string variableName;
-  regex mainFunctionReg("(main())");
-  regex anyFun("(.*)(\\(.*\\);)");
-  regex varNameOnly("(;$)|$");
+  regex mainFunctionReg( "(main())" );
+  regex anyFun( "(.*)(\\(.*\\);)" );
+  regex varNameOnly( "(;$)|$" );
   smatch m, n;
   int i = 1;
-  while ((code = src->readWord()).compare("") != 0) {
-    for (const auto &[original, toChange] : variables) {
-      if (code.compare(original) == 0) {
+  while( ( code = src->readWord() ).compare( "" ) != 0 ) {
+    for( const auto &[original, toChange]: variables ) {
+      if( code.compare( original ) == 0 ) {
         code = toChange;
-        src->writeWord(code);
+        src->writeWord( code );
         code = src->readWord();
       }
     }
-    for (auto it = keyVariableWords.begin(); it != keyVariableWords.end();
-         ++it) {
-      const regex varRegex("(" + *it + ")|(" + *it + "&)");
-      if (regex_match(code, m, varRegex)) {
+    for( auto it = keyVariableWords.begin(); it != keyVariableWords.end();
+         ++it ) {
+      const regex varRegex( "(" + *it + ")|(" + *it + "&)" );
+      if( regex_match( code, m, varRegex ) ) {
         catchVariable = true;
         string nextLine = src->readWord();
-        string newName = gen_random_name(rand() % 10 + 1);
-        if (nextLine.find("()") != string::npos)
+        string newName = gen_random_name( rand() % 10 + 1 );
+        if( nextLine.find( "()" ) != string::npos )
           newName += "()";
-        if (nextLine.find(";") != string::npos)
-          newName.push_back(';');
-        if (nextLine.find("main()") == string::npos) {
+        if( nextLine.find( ";" ) != string::npos )
+          newName.push_back( ';' );
+        if( nextLine.find( "main()" ) == string::npos ) {
           variables[nextLine] = newName;
           nextLine = newName;
         }
-        src->writeWord(code);
-        src->writeWord(" ");
-        src->writeWord(nextLine);
+        src->writeWord( code );
+        src->writeWord( " " );
+        src->writeWord( nextLine );
       }
     }
-    if (code.compare("#include") == 0) {
+    if( code.compare( "#include" ) == 0 ) {
       string nextLine = src->readWord();
-      src->writeWord(code);
-      src->writeWord(" ");
-      src->writeWord(nextLine);
-      src->writeWord("\n");
-    } else if (!catchVariable) {
-      src->writeWord(code);
-      src->writeWord(" ");
+      src->writeWord( code );
+      src->writeWord( " " );
+      src->writeWord( nextLine );
+      src->writeWord( "\n" );
+    } else if( !catchVariable ) {
+      src->writeWord( code );
+      src->writeWord( " " );
     } else
       catchVariable = false;
   }
 }
-string NamesChanger::gen_random_name(const int length) {
+string NamesChanger::gen_random_name( const int length ) {
   string result;
   static const char lettersBank[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     "abcdefghijklmnopqrstuvwxyz";
 
-  srand((unsigned)time(NULL));
+  srand( (unsigned)time( NULL ) );
 
-  result.reserve(length);
+  result.reserve( length );
 
-  for (int i = 0; i < length; ++i)
-    result += lettersBank[rand() % (sizeof(lettersBank) - 1)];
+  for( int i = 0; i < length; ++i )
+    result += lettersBank[rand() % ( sizeof( lettersBank ) - 1 )];
   return result;
 }
 void NamesChanger::changeFunctionNames() {}
