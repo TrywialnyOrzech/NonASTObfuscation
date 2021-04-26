@@ -3,7 +3,7 @@
 
 #include <string>
 #include <fstream>
-#include "sourcesController.h"
+#include "SourcesController.h"
 class Obfuscator : public SourcesController
 {
 public:

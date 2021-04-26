@@ -1,4 +1,4 @@
-#include "obfuscator.h"
+#include "Obfuscator.h"
 
 #include <iostream>
 #include <fstream>
@@ -78,10 +78,15 @@ void Obfuscator::changeVariablesNames()
         for (auto it = keyVariableWords.begin(); it != keyVariableWords.end(); ++it)
         {
             const regex varRegex("("+*it+")|("+*it+"&)");
+            const regex delimeterReg(";");
             if (regex_match(code,m,varRegex)){
-                for (auto x:m) cout << x << " ";
+                // for (auto x:m) cout << x << " ";
                 catchVariable = true;
-                cout << endl;
+                // cout << endl;
+                // string nextLine;
+                // sourceFile >> nextLine;
+                // cout << nextLine << endl;
+
             }
         }
         for (const auto &[original, toChange] : variables)
@@ -100,9 +105,6 @@ void Obfuscator::changeVariablesNames()
         else
             targetFile << code << ' ';
     }
-    for(auto x : variables)
-        cout << x.first << ' ' << x.second << endl;
-    
 }
 
 void Obfuscator::changeFunctionNames(){
