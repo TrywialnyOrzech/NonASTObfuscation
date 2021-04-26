@@ -6,15 +6,15 @@
 #include <string>
 class NamesChanger : public Obfuscator {
 public:
-  NamesChanger(std::string oFP = "../testFile.cc",
-               std::string tFP = "../obfuscatedFile.cc")
-      : Obfuscator(oFP, tFP) {}
+  NamesChanger( std::string oFP = "../testFile.cc",
+                std::string tFP = "../obfuscatedFile.cc" )
+      : Obfuscator( oFP, tFP ) {}
   void clearEnters();
   virtual void changeVariablesNames();
   void changeFunctionNames();
 
 private:
-  std::string gen_random_name(const int);
+  std::string gen_random_name( const int );
 };
 
 #endif
