@@ -9,6 +9,7 @@ add_subdirectory(src/obfuscator)
 add_subdirectory(src/test)
 target_link_libraries(main obfuscator)
 
+
 set_target_properties(main
     PROPERTIES 
         CXX_STANDARD 17
