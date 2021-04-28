@@ -1,20 +1,20 @@
 #ifndef NamesChanger_H
 #define NamesChanger_H
 
-#include <string>
-#include <fstream>
 #include "Obfuscator.h"
-class NamesChanger : public Obfuscator
-{
+#include <fstream>
+#include <string>
+class NamesChanger : public Obfuscator {
 public:
-    NamesChanger(std::string oFP = "../testFile.cc", std::string tFP = "../obfuscatedFile.cc") : Obfuscator(oFP,tFP) {}
-    void clearEnters();
+  NamesChanger(std::string oFP = "../testFile.cc",
+               std::string tFP = "../obfuscatedFile.cc")
+      : Obfuscator(oFP, tFP) {}
+  void clearEnters();
+  virtual void changeVariablesNames();
+  void changeFunctionNames();
 
-    virtual void changeVariablesNames();
-
-    void changeFunctionNames();
-    // SourcesController* src;
-
+private:
+  std::string gen_random_name(const int);
 };
 
 #endif
