@@ -105,6 +105,8 @@ string NamesChanger::gen_random_name( const int length ) {
   static const char lettersBank[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     "abcdefghijklmnopqrstuvwxyz";
 
+  srand( (unsigned)time( NULL ) );
+
   result.reserve( length );
 
   for( int i = 0; i < length; ++i )
