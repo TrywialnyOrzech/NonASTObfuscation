@@ -15,3 +15,4 @@ add_executable(tests obfuscationTests.cc)
 target_link_libraries(tests gtest_main obfuscator)
 add_test(NAME obfuscation_tests COMMAND tests)
 
+
