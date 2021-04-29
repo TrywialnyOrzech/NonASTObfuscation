@@ -32,6 +32,7 @@ using namespace std;
 // }
 
 void NamesChanger::changeVariablesNames() {
+  srand( (unsigned)time( NULL ) );
   string code = "start reading";
   string toReplace = "word";
 
@@ -50,6 +51,7 @@ void NamesChanger::changeVariablesNames() {
     for( const auto &[original, toChange]: variables ) {
       if( code.compare( original ) == 0 ) {
         code = toChange;
+        cout << code << ": zmiana" << endl;
         src->writeWord( code );
         code = src->readWord();
       }
@@ -61,12 +63,20 @@ void NamesChanger::changeVariablesNames() {
         catchVariable = true;
         string nextLine = src->readWord();
         string newName = gen_random_name( rand() % 10 + 1 );
+        cout << "nextLine: " << nextLine << endl;
         if( nextLine.find( "()" ) != string::npos )
           newName += "()";
-        if( nextLine.find( ";" ) != string::npos )
+        if( nextLine.find( ";" ) != string::npos ) {
           newName.push_back( ';' );
+          nextLine.erase( nextLine.end() - 1 );
+        }
+        if( nextLine.find( "&" ) != string::npos ) {
+          newName.insert( 0, "&" );
+          nextLine.erase( nextLine.begin() );
+        }
         if( nextLine.find( "main()" ) == string::npos ) {
           variables[nextLine] = newName;
+          cout << "nextLine2: " << nextLine << endl;
           nextLine = newName;
         }
         src->writeWord( code );
@@ -86,13 +96,14 @@ void NamesChanger::changeVariablesNames() {
     } else
       catchVariable = false;
   }
+  for( auto i = variables.begin(); i != variables.end(); ++i ) {
+    cout << i->first << ' ' << i->second << endl;
+  }
 }
 string NamesChanger::gen_random_name( const int length ) {
   string result;
   static const char lettersBank[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     "abcdefghijklmnopqrstuvwxyz";
-
-  srand( (unsigned)time( NULL ) );
 
   result.reserve( length );
 
