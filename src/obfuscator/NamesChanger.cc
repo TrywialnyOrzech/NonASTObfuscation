@@ -51,7 +51,6 @@ void NamesChanger::changeVariablesNames() {
     for( const auto &[original, toChange]: variables ) {
       if( code.compare( original ) == 0 ) {
         code = toChange;
-        cout << code << ": zmiana" << endl;
         src->writeWord( code );
         code = src->readWord();
       }
@@ -63,7 +62,6 @@ void NamesChanger::changeVariablesNames() {
         catchVariable = true;
         string nextLine = src->readWord();
         string newName = gen_random_name( rand() % 10 + 1 );
-        cout << "nextLine: " << nextLine << endl;
         if( nextLine.find( "()" ) != string::npos )
           newName += "()";
         if( nextLine.find( ";" ) != string::npos ) {
@@ -76,7 +74,6 @@ void NamesChanger::changeVariablesNames() {
         }
         if( nextLine.find( "main()" ) == string::npos ) {
           variables[nextLine] = newName;
-          cout << "nextLine2: " << nextLine << endl;
           nextLine = newName;
         }
         src->writeWord( code );
