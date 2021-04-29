@@ -1,12 +1,16 @@
 # Locate GTest
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
+Include(FetchContent)
+	FetchContent_Declare(
+	GTest
+	GIT_REPOSITORY https://github.com/google/googletest
+	GIT_TAG origin/devel)
+	
+	FetchContent_GetProperties(GTest)
+	if(NOT gtest_POPULATED)
+	FetchContent_Populate(GTest)
+	add_subdirectory("${gtest_SOURCE_DIR}" "${gtest_BINARY_DIR}")
+	endif()
 
-include_directories(obfuscator)
-add_executable(runTests obfuscationTests.cc)
-target_link_libraries(runTests ${GTEST_LIBRARIES} pthread obfuscator)
-set_target_properties(runTests
-    PROPERTIES 
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON
-)
+include_durectories(lib)
+add_executable(tests dumpTestFile.cc obfuscationTests.cc testFile.cc)
+target_link_llibraries(tests GTest)
