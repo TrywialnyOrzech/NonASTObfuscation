@@ -32,6 +32,7 @@ using namespace std;
 // }
 
 void NamesChanger::changeVariablesNames() {
+  srand( (unsigned)time( NULL ) );
   string code = "start reading";
   string toReplace = "word";
 
@@ -63,8 +64,14 @@ void NamesChanger::changeVariablesNames() {
         string newName = gen_random_name( rand() % 10 + 1 );
         if( nextLine.find( "()" ) != string::npos )
           newName += "()";
-        if( nextLine.find( ";" ) != string::npos )
+        if( nextLine.find( ";" ) != string::npos ) {
           newName.push_back( ';' );
+          nextLine.erase( nextLine.end() - 1 );
+        }
+        if( nextLine.find( "&" ) != string::npos ) {
+          newName.insert( 0, "&" );
+          nextLine.erase( nextLine.begin() );
+        }
         if( nextLine.find( "main()" ) == string::npos ) {
           variables[nextLine] = newName;
           nextLine = newName;
@@ -86,13 +93,14 @@ void NamesChanger::changeVariablesNames() {
     } else
       catchVariable = false;
   }
+  for( auto i = variables.begin(); i != variables.end(); ++i ) {
+    cout << i->first << ' ' << i->second << endl;
+  }
 }
 string NamesChanger::gen_random_name( const int length ) {
   string result;
   static const char lettersBank[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     "abcdefghijklmnopqrstuvwxyz";
-
-  srand( (unsigned)time( NULL ) );
 
   result.reserve( length );
 
