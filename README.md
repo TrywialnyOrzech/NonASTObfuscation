@@ -1,20 +1,24 @@
 # NonASTObfuscation
 ## Required libraries
-* GTest
+* GTest (automated download in cmake)
 ## Setup
 ### Compilation
 1. Clone repository
 2. cd to NonASTObfuscation and run
 ```bash
-$ cmake CMakeLists.txt
+$ cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_C_COMPILER:FILEPATH=/bin/gcc-9 -H./ -Bbuild -G "Unix Makefiles"
 ```
-3. Run
 ```bash
-make 
+$ cmake --build build --config Release --target all -j 3 --
 ```
 ### Execution
-From main project directory, type
+From build dir, type
 ```bash
-./main
+./main [INPUT FILE] [OUTPUT FILE]
 ```
+Arguments are not required (proper files are already in project directory).
 ### Unit tests
+In build/src/test run:
+```bash
+./tests
+```
