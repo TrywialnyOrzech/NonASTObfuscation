@@ -47,13 +47,13 @@ void NamesChanger::changeVariablesNames() {
   regex varNameOnly( "(;$)|$" );
   smatch m, n;
   int i = 1;
-  while( ( code = src->readWord() ).compare( "" ) != 0 ) {
+  while( ( code = src.readWord() ).compare( "" ) != 0 ) {
     for( const auto &[original, toChange]: variables ) {
       if( code.compare( original ) == 0 ) {
         code = toChange;
         cout << code << ": zmiana" << endl;
-        src->writeWord( code );
-        code = src->readWord();
+        src.writeWord( code );
+        code = src.readWord();
       }
     }
     for( auto it = keyVariableWords.begin(); it != keyVariableWords.end();
@@ -61,7 +61,7 @@ void NamesChanger::changeVariablesNames() {
       const regex varRegex( "(" + *it + ")|(" + *it + "&)" );
       if( regex_match( code, m, varRegex ) ) {
         catchVariable = true;
-        string nextLine = src->readWord();
+        string nextLine = src.readWord();
         string newName = gen_random_name( rand() % 10 + 1 );
         cout << "nextLine: " << nextLine << endl;
         if( nextLine.find( "()" ) != string::npos )
@@ -79,20 +79,20 @@ void NamesChanger::changeVariablesNames() {
           cout << "nextLine2: " << nextLine << endl;
           nextLine = newName;
         }
-        src->writeWord( code );
-        src->writeWord( " " );
-        src->writeWord( nextLine );
+        src.writeWord( code );
+        src.writeWord( " " );
+        src.writeWord( nextLine );
       }
     }
     if( code.compare( "#include" ) == 0 ) {
-      string nextLine = src->readWord();
-      src->writeWord( code );
-      src->writeWord( " " );
-      src->writeWord( nextLine );
-      src->writeWord( "\n" );
+      string nextLine = src.readWord();
+      src.writeWord( code );
+      src.writeWord( " " );
+      src.writeWord( nextLine );
+      src.writeWord( "\n" );
     } else if( !catchVariable ) {
-      src->writeWord( code );
-      src->writeWord( " " );
+      src.writeWord( code );
+      src.writeWord( " " );
     } else
       catchVariable = false;
   }
