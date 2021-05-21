@@ -4,41 +4,19 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <regex>
 #include <set>
 
 using namespace std;
-
-// void NamesChanger::clearEnters() {
-//   string code = "start reading";
-//   string toReplace = "word";
-//   if( src->getSourceFile() ) {
-//     src->printState( "Obfuscation started" );
-//     while( !src->getSourceFile().eof() ) {
-//       getline( src->getSourceFile(), code );
-//       if( code.find( toReplace ) != string::npos ) {
-//         code.replace( code.find( toReplace ), toReplace.length(), "slowo" );
-//       }
-//       src->getTargetFile() << code;
-//       if( code.find( "#include" ) != string::npos )
-//         src->getTargetFile() << endl;
-//     }
-//     cout << "   Obfuscation completed" << endl;
-//   } else {
-
-//     cout << "Cannot open file!" << endl;
-//   }
-// }
 
 void NamesChanger::changeVariablesNames() {
   srand( (unsigned)time( NULL ) );
   string code = "start reading";
   string toReplace = "word";
 
-  map<string, string> variables;
-  set<string> keyVariableWords{ "int",  "float",  "string", "short",
-                                "long", "double", "char",   "bool" };
+  set<string> keyVariableWords{ "int",  "float",       "string", "short",
+                                "long", "double",      "char",   "bool",
+                                "void", "vector<\\w+>" };
 
   bool catchVariable = false;
   string variableName;
@@ -46,42 +24,69 @@ void NamesChanger::changeVariablesNames() {
   regex anyFun( "(.*)(\\(.*\\);)" );
   regex varNameOnly( "(;$)|$" );
   smatch m, n;
+  enum Endings { none, semicolon, colon, brace };
   int i = 1;
   while( ( code = src.readWord() ).compare( "" ) != 0 ) {
-    for( const auto &[original, toChange]: variables ) {
-      if( code.compare( original ) == 0 ) {
-        code = toChange;
-        cout << code << ": zmiana" << endl;
-        src.writeWord( code );
-        code = src.readWord();
-      }
-    }
     for( auto it = keyVariableWords.begin(); it != keyVariableWords.end();
          ++it ) {
       const regex varRegex( "(" + *it + ")|(" + *it + "&)" );
-      if( regex_match( code, m, varRegex ) ) {
-        catchVariable = true;
-        string nextLine = src.readWord();
-        string newName = gen_random_name( rand() % 10 + 1 );
-        cout << "nextLine: " << nextLine << endl;
-        if( nextLine.find( "()" ) != string::npos )
-          newName += "()";
-        if( nextLine.find( ";" ) != string::npos ) {
-          newName.push_back( ';' );
-          nextLine.erase( nextLine.end() - 1 );
+
+      if( !ifDuplicate( &code ) ) {
+        if( regex_match( code, m, varRegex ) ) {
+          catchVariable = true;
+          Endings ending = none;
+          string nextLine = src.readWord();
+          if( !ifDuplicate( &nextLine ) ) {
+            if( nextLine.find( "main()" ) == string::npos ) {
+              string newName = gen_random_name( rand() % 10 + 1 );
+              if( nextLine.find( "()" ) != string::npos )
+                newName += "()";
+              else if( nextLine.find( "(" ) != string::npos )
+                newName += "(";
+              if( nextLine.find( ";" ) != string::npos ) {
+                ending = semicolon;
+                nextLine.erase( nextLine.end() - 1 );
+              }
+              if( nextLine.find( ":" ) != string::npos ) {
+                ending = colon;
+                nextLine.erase( nextLine.end() - 1 );
+              }
+              if( nextLine.find( "{" ) != string::npos ) {
+                ending = brace;
+                nextLine.erase( nextLine.end() - 1 );
+              }
+
+              if( nextLine.find( "&" ) != string::npos ) {
+                newName.insert( 0, "&" );
+                nextLine.erase( nextLine.begin() );
+              }
+              variables[nextLine] = newName;
+              nextLine = newName;
+              switch( ending ) {
+              case none:
+                break;
+              case semicolon:
+                nextLine.push_back( ';' );
+                break;
+              case colon:
+                nextLine.push_back( ':' );
+                break;
+              case brace:
+                nextLine.push_back( '{' );
+                break;
+
+              default:
+                break;
+              }
+            }
+          }
+          src.writeWord( code );
+          src.writeWord( " " );
+          src.writeWord( nextLine );
         }
-        if( nextLine.find( "&" ) != string::npos ) {
-          newName.insert( 0, "&" );
-          nextLine.erase( nextLine.begin() );
-        }
-        if( nextLine.find( "main()" ) == string::npos ) {
-          variables[nextLine] = newName;
-          cout << "nextLine2: " << nextLine << endl;
-          nextLine = newName;
-        }
+      } else {
         src.writeWord( code );
-        src.writeWord( " " );
-        src.writeWord( nextLine );
+        code = src.readWord();
       }
     }
     if( code.compare( "#include" ) == 0 ) {
@@ -96,19 +101,29 @@ void NamesChanger::changeVariablesNames() {
     } else
       catchVariable = false;
   }
+  cout << "Variables:\n\n";
   for( auto i = variables.begin(); i != variables.end(); ++i ) {
-    cout << i->first << ' ' << i->second << endl;
+    cout << endl << i->first << ' ' << i->second << endl;
   }
 }
+bool NamesChanger::ifDuplicate( string *name ) {
+  for( auto i = variables.begin(); i != variables.end(); ++i ) {
+    if( name->compare( i->first ) == 0 ) {
+      cout << *name << ": przed zmiana" << endl;
+      *name = i->second;
+      cout << *name << ": po zmiana" << endl;
+      return true;
+    }
+  }
+  return false;
+}
+
 string NamesChanger::gen_random_name( const int length ) {
   string result;
   static const char lettersBank[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     "abcdefghijklmnopqrstuvwxyz";
 
-  srand( (unsigned)time( NULL ) );
-
   result.reserve( length );
-
   for( int i = 0; i < length; ++i )
     result += lettersBank[rand() % ( sizeof( lettersBank ) - 1 )];
   return result;
@@ -116,7 +131,8 @@ string NamesChanger::gen_random_name( const int length ) {
 void NamesChanger::changeFunctionNames() {}
 //   string code;
 //   map<string, string> variables;
-//   set<string> keyVariableWords{ "int",    "float", "string", "short", "long",
+//   set<string> keyVariableWords{ "int",    "float", "string", "short",
+//   "long",
 //                                 "double", "char",  "bool",   "void" };
 //   bool catchFuncion = false;
 //   smatch m;
