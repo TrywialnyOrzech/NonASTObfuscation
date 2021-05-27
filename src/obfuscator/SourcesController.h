@@ -17,6 +17,7 @@ public:
   void loadSourceFile( const std::string &name );
   void loadTargetFile( const std::string &name );
   void init();
+  void reload();
   void close() {
     sourceFile.close();
     targetFile.close();

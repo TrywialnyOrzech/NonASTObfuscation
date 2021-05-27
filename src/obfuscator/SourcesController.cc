@@ -7,6 +7,12 @@ void SourcesController::init() {
   loadSourceFile( sourceName );
   loadTargetFile( targetName );
 }
+void SourcesController::reload() {
+  printState( "Reopening files..." );
+  close();
+  loadSourceFile( sourceName );
+  targetFile.open( targetName, fstream::in | fstream::out );
+}
 
 void SourcesController::loadSourceFile( const string &name ) {
   sourceFile.open( name, fstream::in );
@@ -17,7 +23,7 @@ void SourcesController::loadSourceFile( const string &name ) {
 }
 void SourcesController::loadTargetFile( const string &name ) {
   targetFile.open( name, fstream::in | fstream::out | fstream::trunc );
-  if( !sourceFile ) {
+  if( !targetFile ) {
     cerr << "Cannot open/create target file in this path!, path: " << name
          << endl;
   }

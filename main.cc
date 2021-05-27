@@ -27,6 +27,7 @@ int main( int argc, char **argv ) {
     obfuscator = &namesChanger;
     obfuscator->init();
     obfuscator->changeVariablesNames();
+    obfuscator->reload();
   }
   return 0;
 }
