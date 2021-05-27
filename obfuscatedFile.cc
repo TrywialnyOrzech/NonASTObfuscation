@@ -1,22 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
-void z( const vector<string> LgjkXnTG );
-int pLOX();
-char GSIJZU( char OIerHsXX );
-int fLYqv;
-string d;
-int main() {
-  vector<string> eSgRhfK{ "Hello", "C++",     "World",
-                          "from",  "VS Code", "and the C++ extension!!" };
-  z( eSgRhfK );
-}
-void z( const vector<string> eSgRhfK ) {
-  for( const string &yv: eSgRhfK ) {
-    cout << &yv << " ";
-  }
-  cout << pLOX() << endl;
-}
-int pLOX() { return 0; }
-char GSIJZU( char OIerHsXX ) { return OIerHsXX + 1; }
+using namespace std; void K(const vector<string> jvy); int POcYE();char CqX(char NIIzYBki); int DUZv;string JF;int main(){ vector<string> Ucwh{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; K(Ucwh); } void K(const vector<string> Ucwh) { for( const string &mlsqPugn:Ucwh) { cout << &mlsqPugn<< " "; } cout << POcYE()<< endl; } int POcYE(){ return 0; } char CqX(char NIIzYBki) { return NIIzYBki+ 1; } 
