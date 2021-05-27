@@ -30,11 +30,9 @@ public:
 
   std::string getTargetFilePath();
 
-  std::fstream getSourceFile();
+  bool readWord( std::string *word );
 
-  std::fstream getTargetFile();
-
-  std::string readWord();
+  bool readLine( std::string *word );
 
   void writeWord( std::string word );
 

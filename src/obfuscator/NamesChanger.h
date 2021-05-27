@@ -18,7 +18,9 @@ public:
 
 private:
   std::map<std::string, std::string> variables;
-  std::string gen_random_name( const int );
+  std::string genRandomName( const int );
+  void clearAndTagEnding( int type, char character, std::string *word,
+                          int *result );
 };
 
 #endif

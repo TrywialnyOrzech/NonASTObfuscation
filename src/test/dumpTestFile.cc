@@ -1,4 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <string>
-using namespace std; void printWords(const vector<string> msg); int main(){ vector<string> msg{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!"}; printWords(msg); } void printWords(const vector<string> msg) { for (const string& u: msg) { cout << u<< " "; } cout << endl; } 
+#include <vector>
+using namespace std; void slibobxd(const vector <string> msg ); int main(){ vector<string> zd{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; slibobxd(zd); } void slibobxd(const vector<string> zd) { for( const string &EfTT:zd) { cout << &EfTT<< " "; } cout << endl; } 

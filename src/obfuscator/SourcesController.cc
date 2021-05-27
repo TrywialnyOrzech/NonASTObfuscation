@@ -38,13 +38,18 @@ void SourcesController::setTargetFilePath( string path ) { targetName = path; }
 string SourcesController::getOriginalFilePath() { return sourceName; }
 string SourcesController::getTargetFilePath() { return targetName; }
 
-string SourcesController::readWord() {
-  string result;
-  if( sourceFile >> result )
-    return result;
+bool SourcesController::readWord( string *word ) {
+  if( sourceFile >> *word )
+    return true;
   else {
-    return "";
+    return false;
   }
+}
+
+bool SourcesController::readLine( string *word ) {
+  if( getline( sourceFile, *word ) )
+    return true;
+  return false;
 }
 
 void SourcesController::writeWord( string word ) { targetFile << word; }

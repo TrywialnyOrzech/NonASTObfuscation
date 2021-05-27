@@ -21,6 +21,7 @@ protected:
 TEST_F( obfuscationTests, compile_source_file ) {
   FilesCompiler compiler( testFile, targetFile );
   obf = &compiler;
+  ASSERT_TRUE( FilesCompiler::fileCompilation( testFile ) );
   ASSERT_TRUE( obf->initialCompilation() );
 }
 
