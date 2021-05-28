@@ -10,6 +10,10 @@ void SourcesController::init() {
 void SourcesController::reload() {
   printState( "Reopening files..." );
   close();
+  sourceFile.clear();
+  sourceFile.seekg( 0, ios::beg );
+  targetFile.clear();
+  targetFile.seekg( 0, ios::beg );
   loadSourceFile( sourceName );
   targetFile.open( targetName, fstream::in | fstream::out );
 }
@@ -52,9 +56,14 @@ bool SourcesController::readWord( string *word ) {
   }
 }
 
-bool SourcesController::readLine( string *word ) {
-  if( getline( sourceFile, *word ) )
-    return true;
+bool SourcesController::readLine( string *word, bool whichFile ) {
+  if( whichFile ) {
+    if( getline( targetFile, *word ) )
+      return true;
+  } else {
+    if( getline( sourceFile, *word ) )
+      return true;
+  }
   return false;
 }
 

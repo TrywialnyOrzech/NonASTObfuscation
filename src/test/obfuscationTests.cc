@@ -1,6 +1,7 @@
 #include "../obfuscator/FilesCompiler.h"
 #include "../obfuscator/NamesChanger.h"
 #include "../obfuscator/Obfuscator.h"
+#include "../obfuscator/QualityChecker.h"
 #include "../obfuscator/SourcesController.h"
 #include <gtest/gtest.h>
 
@@ -23,6 +24,16 @@ TEST_F( obfuscationTests, compile_source_file ) {
   obf = &compiler;
   ASSERT_TRUE( FilesCompiler::fileCompilation( testFile ) );
   ASSERT_TRUE( obf->initialCompilation() );
+}
+
+TEST_F( obfuscationTests, quality_check ) {
+  QualityChecker qualityChecker( *obf );
+  std::string x = "10digitlen";
+  std::string y = "11digitlenx";
+  const char *source = x.c_str();
+  const char *target = y.c_str();
+  ASSERT_GT( qualityChecker.rateCodeLength( source, target ), 0 );
+  EXPECT_GE( qualityChecker.rateCodeLength( source, target ), 100 );
 }
 
 // Very last test (deletes Obfuscator)

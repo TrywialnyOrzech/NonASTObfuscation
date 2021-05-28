@@ -1,6 +1,7 @@
 #include "src/obfuscator/FilesCompiler.h"
 #include "src/obfuscator/NamesChanger.h"
 #include "src/obfuscator/Obfuscator.h"
+#include "src/obfuscator/QualityChecker.h"
 #include "src/obfuscator/SourcesController.h"
 #include <iostream>
 #include <string>
@@ -19,15 +20,22 @@ int main( int argc, char **argv ) {
     }
   }
   Obfuscator *obfuscator = new Obfuscator( sources );
-  NamesChanger namesChanger( sources->getOriginalFilePath(),
-                             sources->getTargetFilePath() );
-  FilesCompiler filesCompiler;
+  NamesChanger namesChanger( *obfuscator );
+  FilesCompiler filesCompiler( *obfuscator );
   obfuscator = &filesCompiler;
   if( obfuscator->initialCompilation() ) {
     obfuscator = &namesChanger;
     obfuscator->init();
     obfuscator->changeVariablesNames();
-    obfuscator->reload();
   }
+  QualityChecker qualityChecker( *obfuscator );
+  obfuscator = &qualityChecker;
+  obfuscator->reload();
+  obfuscator->loadFileContent();
+  string x = "1234567890";
+  string y = "12345678901";
+  const char *source = x.c_str();
+  const char *target = y.c_str();
+  obfuscator->rateCodeLength( source, target );
   return 0;
 }

@@ -8,6 +8,7 @@ public:
   FilesCompiler( std::string oFP = "../testFile.cc",
                  std::string tFP = "../obfuscatedFile.cc" )
       : Obfuscator( oFP, tFP ) {}
+  FilesCompiler( Obfuscator obf ) : Obfuscator( obf ) {}
   ~FilesCompiler() {}
   static bool fileCompilation( std::string filename );
   bool initialCompilation();
