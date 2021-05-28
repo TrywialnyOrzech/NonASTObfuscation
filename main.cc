@@ -9,6 +9,7 @@
 using namespace std;
 
 int main( int argc, char **argv ) {
+  // Prepare files
   SourcesController *sources = new SourcesController();
   if( argc > 1 ) {
     string sourceName = argv[1];
@@ -20,6 +21,10 @@ int main( int argc, char **argv ) {
     }
   }
   Obfuscator *obfuscator = new Obfuscator( sources );
+  // Delete comments (TODO)
+  // Add NOP equivalents (TODO)
+  // Erase spaces and new line chars (TODO)
+  // Change variable's and function's names
   NamesChanger namesChanger( *obfuscator );
   FilesCompiler filesCompiler( *obfuscator );
   obfuscator = &filesCompiler;
@@ -28,6 +33,10 @@ int main( int argc, char **argv ) {
     obfuscator->init();
     obfuscator->changeVariablesNames();
   }
+  // Add escape sequences (TODO)
+  // Add ?: operator (TODO)
+  // Add trigraph sequences (TODO)
+  // Check code quality
   QualityChecker qualityChecker( *obfuscator );
   obfuscator = &qualityChecker;
   obfuscator->reload();
