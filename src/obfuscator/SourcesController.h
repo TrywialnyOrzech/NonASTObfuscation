@@ -17,6 +17,7 @@ public:
   void loadSourceFile( const std::string &name );
   void loadTargetFile( const std::string &name );
   void init();
+  void reload();
   void close() {
     sourceFile.close();
     targetFile.close();
@@ -30,11 +31,9 @@ public:
 
   std::string getTargetFilePath();
 
-  std::fstream getSourceFile();
+  bool readWord( std::string *word );
 
-  std::fstream getTargetFile();
-
-  std::string readWord();
+  bool readLine( std::string *word );
 
   void writeWord( std::string word );
 

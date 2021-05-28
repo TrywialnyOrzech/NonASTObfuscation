@@ -17,6 +17,7 @@ public:
   virtual void fileCompilation() {}
   virtual bool initialCompilation() { return false; }
   virtual void init();
+  void reload();
   void close();
 
 protected:

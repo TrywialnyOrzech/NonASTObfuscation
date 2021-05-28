@@ -7,6 +7,12 @@ void SourcesController::init() {
   loadSourceFile( sourceName );
   loadTargetFile( targetName );
 }
+void SourcesController::reload() {
+  printState( "Reopening files..." );
+  close();
+  loadSourceFile( sourceName );
+  targetFile.open( targetName, fstream::in | fstream::out );
+}
 
 void SourcesController::loadSourceFile( const string &name ) {
   sourceFile.open( name, fstream::in );
@@ -17,7 +23,7 @@ void SourcesController::loadSourceFile( const string &name ) {
 }
 void SourcesController::loadTargetFile( const string &name ) {
   targetFile.open( name, fstream::in | fstream::out | fstream::trunc );
-  if( !sourceFile ) {
+  if( !targetFile ) {
     cerr << "Cannot open/create target file in this path!, path: " << name
          << endl;
   }
@@ -38,13 +44,18 @@ void SourcesController::setTargetFilePath( string path ) { targetName = path; }
 string SourcesController::getOriginalFilePath() { return sourceName; }
 string SourcesController::getTargetFilePath() { return targetName; }
 
-string SourcesController::readWord() {
-  string result;
-  if( sourceFile >> result )
-    return result;
+bool SourcesController::readWord( string *word ) {
+  if( sourceFile >> *word )
+    return true;
   else {
-    return "";
+    return false;
   }
+}
+
+bool SourcesController::readLine( string *word ) {
+  if( getline( sourceFile, *word ) )
+    return true;
+  return false;
 }
 
 void SourcesController::writeWord( string word ) { targetFile << word; }
