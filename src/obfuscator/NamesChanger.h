@@ -10,6 +10,7 @@ public:
   NamesChanger( std::string oFP = "../testFile.cc",
                 std::string tFP = "../obfuscatedFile.cc" )
       : Obfuscator( oFP, tFP ) {}
+  NamesChanger( Obfuscator obf ) : Obfuscator( obf ) {}
   ~NamesChanger() {}
   void clearEnters();
   virtual void changeVariablesNames();

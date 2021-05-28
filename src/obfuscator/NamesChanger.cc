@@ -93,10 +93,6 @@ void NamesChanger::changeVariablesNames() {
     } else
       catchVariable = false;
   }
-  cout << "Variables:\n\n";
-  for( auto i = variables.begin(); i != variables.end(); ++i ) {
-    cout << endl << i->first << ' ' << i->second << endl;
-  }
 }
 bool NamesChanger::ifDuplicate( string *name ) {
   for( auto i = variables.begin(); i != variables.end(); ++i ) {

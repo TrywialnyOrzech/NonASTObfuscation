@@ -26,7 +26,9 @@ TEST_F( obfuscationTests, compile_source_file ) {
   ASSERT_TRUE( obf->initialCompilation() );
 }
 
-TEST_F( obfuscationTests, quality_check ) { QualityChecker qualityChecker;  }
+TEST_F( obfuscationTests, quality_check ) {
+  QualityChecker qualityChecker( *obf );
+}
 
 // Very last test (deletes Obfuscator)
 TEST_F( obfuscationTests, compile_target_file ) {

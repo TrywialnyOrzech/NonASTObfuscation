@@ -10,6 +10,7 @@ public:
     SourcesController source( oFP, tFP );
     src = source;
   }
+  Obfuscator( const Obfuscator &obf ) { src = obf.src; }
   Obfuscator( SourcesController *source ) { src = *source; }
   ~Obfuscator() {}
   virtual void changeVariablesNames() {}

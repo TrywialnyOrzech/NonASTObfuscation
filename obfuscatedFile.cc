@@ -1,4 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void jLYCeAZ(const vector<string> R); int shoNle();char VF(char e); int fXwFhbo;string iXz;int main(){ vector<string> ZGiasbX{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; jLYCeAZ(ZGiasbX); } void jLYCeAZ(const vector<string> ZGiasbX) { for( const string &koBxS:ZGiasbX) { cout << &koBxS<< " "; } cout << shoNle()<< endl; } int shoNle(){ return 0; } char VF(char e) { return e+ 1; } 
+using namespace std; void GtM(const vector<string> RbLxUpBGs); int AafzlqETL();char mpWJyT(char Eoti); int UVCpLfXfNz;string szrKfKWYY;int main(){ vector<string> uJlp{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; GtM(uJlp); } void GtM(const vector<string> uJlp) { for( const string &SdjcK:uJlp) { cout << &SdjcK<< " "; } cout << AafzlqETL()<< endl; } int AafzlqETL(){ return 0; } char mpWJyT(char Eoti) { return Eoti+ 1; } 

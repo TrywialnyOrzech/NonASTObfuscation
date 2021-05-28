@@ -20,19 +20,17 @@ int main( int argc, char **argv ) {
     }
   }
   Obfuscator *obfuscator = new Obfuscator( sources );
-  NamesChanger namesChanger( sources->getOriginalFilePath(),
-                             sources->getTargetFilePath() );
-  FilesCompiler filesCompiler;
+  NamesChanger namesChanger( *obfuscator );
+  FilesCompiler filesCompiler( *obfuscator );
   obfuscator = &filesCompiler;
   if( obfuscator->initialCompilation() ) {
     obfuscator = &namesChanger;
     obfuscator->init();
     obfuscator->changeVariablesNames();
-    obfuscator->reload();
   }
-  obfuscator->reload();
-  QualityChecker qualityChecker;
+  QualityChecker qualityChecker( *obfuscator );
   obfuscator = &qualityChecker;
+  obfuscator->reload();
   obfuscator->loadFileContent();
 
   return 0;

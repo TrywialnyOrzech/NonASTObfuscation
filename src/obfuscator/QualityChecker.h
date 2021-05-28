@@ -5,6 +5,7 @@
 
 class QualityChecker : public Obfuscator {
 public:
+  QualityChecker( Obfuscator obf ) : Obfuscator( obf ) {}
   void loadFileContent();
 };
 
