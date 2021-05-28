@@ -33,7 +33,7 @@ public:
 
   bool readWord( std::string *word );
 
-  bool readLine( std::string *word );
+  bool readLine( std::string *word, bool whichFile );
 
   void writeWord( std::string word );
 

@@ -56,9 +56,14 @@ bool SourcesController::readWord( string *word ) {
   }
 }
 
-bool SourcesController::readLine( string *word ) {
-  if( getline( sourceFile, *word ) )
-    return true;
+bool SourcesController::readLine( string *word, bool whichFile ) {
+  if( whichFile ) {
+    if( getline( targetFile, *word ) )
+      return true;
+  } else {
+    if( getline( sourceFile, *word ) )
+      return true;
+  }
   return false;
 }
 
