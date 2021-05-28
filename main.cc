@@ -32,6 +32,10 @@ int main( int argc, char **argv ) {
   obfuscator = &qualityChecker;
   obfuscator->reload();
   obfuscator->loadFileContent();
-
+  string x = "elo elo wiadomosc na start";
+  string y = "ouhasdoihaasoijasfoihsdfiohsdoihgsoihgsiohsdghoidgsoigds";
+  const char *source = x.c_str();
+  const char *target = y.c_str();
+  obfuscator->rateCodeLength(source, target);
   return 0;
 }

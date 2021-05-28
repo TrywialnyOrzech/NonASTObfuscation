@@ -13,4 +13,13 @@ void QualityChecker::loadFileContent() {
   }
   cout << "TERA MOJE" << endl;
   cout << fileContent << endl;
-}       
+}
+
+int QualityChecker::rateCodeLength( char const *source, char const *target ) {
+  string sourceStr( source );
+  string targetStr( target );
+  cout << "Dlugosc source to: " << sourceStr.length()
+       << " a dlugosc targetu to: " << targetStr.length() << endl;
+
+  return 0;
+}

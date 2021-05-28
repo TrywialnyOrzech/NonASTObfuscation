@@ -19,6 +19,7 @@ public:
   virtual bool initialCompilation() { return false; }
   virtual void init();
   virtual void loadFileContent(){};
+  virtual int rateCodeLength( char const *, char const * ) { return false; };
   void reload();
   void close();
 
