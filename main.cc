@@ -1,4 +1,5 @@
 #include "src/obfuscator/FilesCompiler.h"
+#include "src/obfuscator/NOPInjector.h"
 #include "src/obfuscator/NamesChanger.h"
 #include "src/obfuscator/Obfuscator.h"
 #include "src/obfuscator/SourcesController.h"
@@ -28,5 +29,10 @@ int main( int argc, char **argv ) {
     obfuscator->init();
     obfuscator->changeVariablesNames();
   }
+
+  obfuscator->close();
+
+  NOPInjector nopInjector;
+  nopInjector.readFile();
   return 0;
 }

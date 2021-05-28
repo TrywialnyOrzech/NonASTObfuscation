@@ -2,6 +2,7 @@
 #include "../obfuscator/NamesChanger.h"
 #include "../obfuscator/Obfuscator.h"
 #include "../obfuscator/SourcesController.h"
+#include "../obfuscator/NOPInjector.h"
 #include <gtest/gtest.h>
 
 using ::testing::Test;
@@ -22,6 +23,11 @@ TEST_F( obfuscationTests, compile_source_file ) {
   FilesCompiler compiler( testFile, targetFile );
   obf = &compiler;
   ASSERT_TRUE( obf->initialCompilation() );
+}
+
+TEST_F( obfuscationTests, nop_injector ) {
+  NOPInjector nopInjector;
+  
 }
 
 // Very last test (deletes Obfuscator)

@@ -48,3 +48,9 @@ string SourcesController::readWord() {
 }
 
 void SourcesController::writeWord( string word ) { targetFile << word; }
+
+bool SourcesController::readLine( string *word ) {
+  if( getline( sourceFile, *word ) )
+    return true;
+  return false;
+}

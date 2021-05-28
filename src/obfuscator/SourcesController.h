@@ -34,6 +34,10 @@ public:
 
   std::fstream getTargetFile();
 
+  bool readLine( std::string *word );
+
+  std::string readLine();
+
   std::string readWord();
 
   void writeWord( std::string word );
