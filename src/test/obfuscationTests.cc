@@ -1,4 +1,5 @@
 #include "../obfuscator/FilesCompiler.h"
+#include "../obfuscator/NOPInjector.h"
 #include "../obfuscator/NamesChanger.h"
 #include "../obfuscator/Obfuscator.h"
 #include "../obfuscator/QualityChecker.h"
@@ -34,6 +35,11 @@ TEST_F( obfuscationTests, quality_check ) {
   const char *target = y.c_str();
   ASSERT_GT( qualityChecker.rateCodeLength( source, target ), 0 );
   EXPECT_GE( qualityChecker.rateCodeLength( source, target ), 100 );
+}
+
+TEST_F( obfuscationTests, nop_injector ) {
+  NOPInjector nopInjector( *obf );
+  ASSERT_TRUE( nopInjector.test() );
 }
 
 // Very last test (deletes Obfuscator)

@@ -1,4 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void hztGzen(const vector<string> VliDdOgSp); int k();char BCpBlP(char vnMXwLtCnX); int JUCTYHhE;string XjmwMomNC;int main(){ vector<string> aZQOZo{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; hztGzen(aZQOZo); } void hztGzen(const vector<string> aZQOZo) { for( const string &SSRpkam:aZQOZo) { cout << &SSRpkam<< " "; } cout << k()<< endl; } int k(){ return 0; } char BCpBlP(char vnMXwLtCnX) { return vnMXwLtCnX+ 1; } 
+using namespace std; void fWCBy(const vector<string> Fexycma); int cHri();char YqpGHJ(char XIT); int iyKkz;string Igr;int main(){ for (int i = 0; i < 10; ++i){} return 0; } void fWCBy(const vector<string> Fexycma) { for( const string &GvUg:Fexycma) { cout << &GvUg<< " "; } cout << cHri()<< endl; } int cHri(){ return 0; } char YqpGHJ(char XIT) { return XIT+ 1; } 
