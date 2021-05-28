@@ -28,6 +28,12 @@ TEST_F( obfuscationTests, compile_source_file ) {
 
 TEST_F( obfuscationTests, quality_check ) {
   QualityChecker qualityChecker( *obf );
+  std::string x = "10digitlen";
+  std::string y = "11digitlenx";
+  const char *source = x.c_str();
+  const char *target = y.c_str();
+  ASSERT_GT( qualityChecker.rateCodeLength( source, target ), 0 );
+  EXPECT_GE( qualityChecker.rateCodeLength( source, target ), 100 );
 }
 
 // Very last test (deletes Obfuscator)
