@@ -47,12 +47,12 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -DCMAKE_CXX_COMPILER=g++-9
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}/build/src/test
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       # run: ctest -C ${{env.BUILD_TYPE}}
-      run: ctest
+      run: /usr/bin/cmake --build ../../ --config Debug --target tests -j 3 --
     - name: Check_Formatting_Std
-      working-directory: ${{ github.workspace }}/src
+      working-directory: ${{ github.workspace }}/src/obfuscator
       run: clang-format --dry-run --Werror $(find . -name \*.cc -o -name \*.h)
       if: matrix.os == 'ubuntu-20.04' 
