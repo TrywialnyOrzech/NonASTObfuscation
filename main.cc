@@ -1,6 +1,7 @@
 #include "src/obfuscator/FilesCompiler.h"
 #include "src/obfuscator/NamesChanger.h"
 #include "src/obfuscator/Obfuscator.h"
+#include "src/obfuscator/QualityChecker.h"
 #include "src/obfuscator/SourcesController.h"
 #include <iostream>
 #include <string>
@@ -29,5 +30,10 @@ int main( int argc, char **argv ) {
     obfuscator->changeVariablesNames();
     obfuscator->reload();
   }
+  obfuscator->reload();
+  QualityChecker qualityChecker;
+  obfuscator = &qualityChecker;
+  obfuscator->loadFileContent();
+
   return 0;
 }
