@@ -18,8 +18,8 @@ void QualityChecker::loadFileContent() {
 int QualityChecker::rateCodeLength( char const *source, char const *target ) {
   string sourceStr( source );
   string targetStr( target );
-  cout << "Dlugosc source to: " << sourceStr.length()
-       << " a dlugosc targetu to: " << targetStr.length() << endl;
-
-  return 0;
+  int result = (int)targetStr.length() * 100 / sourceStr.length();
+  cout << "Obfuscated code is " << result << " % length of original code."
+       << endl;
+  return result;
 }
