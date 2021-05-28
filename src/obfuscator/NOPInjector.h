@@ -16,8 +16,8 @@ public:
     randomY = rand() % 50 + 1;
   }
   bool findFuncDefinitions();          // returns array with string positions
-  int getRandomValues(bool);
-  bool injectForLoops();
+  int getRandomValues( bool );
+  bool injectForLoops( const char * );
   bool findKeywords();
   bool injectZeros();
   bool injectOR();
