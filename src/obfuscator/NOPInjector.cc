@@ -1,7 +1,14 @@
 #include "NOPInjector.h"
 
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
-bool NOPInjector::test() { return true; }
+int NOPInjector::getRandomValues( bool choice ) {
+  if( choice )
+    return randomX;
+  else
+    return randomY;
+}

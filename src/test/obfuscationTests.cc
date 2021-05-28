@@ -39,7 +39,10 @@ TEST_F( obfuscationTests, quality_check ) {
 
 TEST_F( obfuscationTests, nop_injector ) {
   NOPInjector nopInjector( *obf );
-  ASSERT_TRUE( nopInjector.test() );
+  ASSERT_GE( nopInjector.getRandomValues( true ), 1 );
+  ASSERT_LE( nopInjector.getRandomValues( true ), 10 );
+  ASSERT_GE( nopInjector.getRandomValues( false ), 1 );
+  ASSERT_LE( nopInjector.getRandomValues( false ), 50 );
 }
 
 // Very last test (deletes Obfuscator)

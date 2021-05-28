@@ -1,4 +1,5 @@
 #include "src/obfuscator/FilesCompiler.h"
+#include "src/obfuscator/NOPInjector.h"
 #include "src/obfuscator/NamesChanger.h"
 #include "src/obfuscator/Obfuscator.h"
 #include "src/obfuscator/QualityChecker.h"
@@ -9,6 +10,7 @@
 using namespace std;
 
 int main( int argc, char **argv ) {
+  // Prepare files
   SourcesController *sources = new SourcesController();
   if( argc > 1 ) {
     string sourceName = argv[1];
@@ -20,6 +22,14 @@ int main( int argc, char **argv ) {
     }
   }
   Obfuscator *obfuscator = new Obfuscator( sources );
+  // Delete comments (TODO)
+  // Add NOP equivalents
+  NOPInjector nopInjector( *obfuscator );
+  obfuscator = &nopInjector;
+  // czy tu tez reload i loadfilecontent?
+
+  // Erase spaces and new line chars (TODO)
+  // Change variable's and function's names
   NamesChanger namesChanger( *obfuscator );
   FilesCompiler filesCompiler( *obfuscator );
   obfuscator = &filesCompiler;
@@ -28,6 +38,10 @@ int main( int argc, char **argv ) {
     obfuscator->init();
     obfuscator->changeVariablesNames();
   }
+  // Add escape sequences (TODO)
+  // Add ?: operator (TODO)
+  // Add trigraph sequences (TODO)
+  // Check code quality
   QualityChecker qualityChecker( *obfuscator );
   obfuscator = &qualityChecker;
   obfuscator->reload();

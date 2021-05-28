@@ -1,4 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void fWCBy(const vector<string> Fexycma); int cHri();char YqpGHJ(char XIT); int iyKkz;string Igr;int main(){ for (int i = 0; i < 10; ++i){} return 0; } void fWCBy(const vector<string> Fexycma) { for( const string &GvUg:Fexycma) { cout << &GvUg<< " "; } cout << cHri()<< endl; } int cHri(){ return 0; } char YqpGHJ(char XIT) { return XIT+ 1; } 
+using namespace std; void y(const vector<string> dQX); int dFhIn();char Dq(char kTr); int ktwzVeS;string PUzdSrj;int main(){ vector<string> qXov{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; y(qXov); } void y(const vector<string> qXov) { for( const string &wiEzBm:qXov) { cout << &wiEzBm<< " "; } cout << dFhIn()<< endl; } int dFhIn(){ return 0; } char Dq(char kTr) { return kTr+ 1; } 
