@@ -56,11 +56,15 @@ TEST_F( obfuscationTests, nop_injector ) {
   "][a-zA-Z]+(\\(((\\w)+[ ]+(\\w)+(,)*[ ]*)*\\))+[ ](\\{)+" );
 
   const std::string variablesCorrectResult = "int x = 2;\nfloat y = 2.22222";
-  const std::string functionsCorrectResult = "int main() {\n";
+  const std::string functionsCorrectResult = "int main() {";
+  // const std::vector<std::string> functionsCorrectResult = {"int main() {"};
 
-  std::string foundFunc =
+  std::vector<std::string> foundFunc =
   nopInjector.findRegexMatches( functionsText, functionsReg );
-  ASSERT_STREQ( foundFunc.c_str(), functionsCorrectResult.c_str() );
+  for( int i = 0; i < foundFunc.size(); ++i ) {
+    std::string currentString = foundFunc[i];
+    ASSERT_STREQ( currentString.c_str(), functionsCorrectResult.c_str() );
+  }
 }
 
 // Very last test (deletes Obfuscator)

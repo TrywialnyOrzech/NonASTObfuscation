@@ -25,9 +25,14 @@ int main( int argc, char **argv ) {
   // Delete comments (TODO)
   // Add NOP equivalents
   NOPInjector nopInjector( *obfuscator );
-  obfuscator = &nopInjector;  
+  obfuscator = &nopInjector;
   // czy tu tez reload i loadfilecontent?
-
+  obfuscator->reload();
+  obfuscator->loadFileContent();
+  if( nopInjector.findFuncDefinitions() ) {
+    cout << "No functions definitions found" << endl;
+    exit( 1 );
+  }
   // Erase spaces and new line chars (TODO)
   // Change variable's and function's names
   NamesChanger namesChanger( *obfuscator );

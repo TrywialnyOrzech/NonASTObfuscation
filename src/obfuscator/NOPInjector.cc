@@ -16,21 +16,28 @@ bool NOPInjector::findFuncDefinitions() {
   "(bool||char||double||float||int||long||short||void)[ "
   "][a-zA-Z]+(\\(((\\w)+[ ]+(\\w)+(,)*[ ]*)*\\))+[ ](\\{)+" );
   foundFunctions = findRegexMatches( code, functionsReg );
-  if (foundFunctions.empty())
+  if( foundFunctions.empty() ) {
+    cout << "Pusty strinol " << endl;
     return 1;
+  }
   return 0;
 }
 
-string NOPInjector::findRegexMatches( string str, regex reg ) {
-  string results;
+vector<string> NOPInjector::findRegexMatches( string str, regex reg ) {
+  vector<string> results;
   sregex_iterator currentMatch( str.begin(), str.end(), reg );
   sregex_iterator lastMatch;
   while( currentMatch != lastMatch ) {
     smatch match = *currentMatch;
-    results.append( match.str() + "\n" );
+    results.push_back(match.str());
     ++currentMatch;
   }
   return results;
+}
+
+bool NOPInjector::findPositions() {
+  
+  return 0;
 }
 
 bool NOPInjector::injectForLoops( const char *fileContent ) {

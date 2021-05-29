@@ -9,7 +9,7 @@
 
 class NOPInjector : public Obfuscator {
   int randomX, randomY;
-  std::string foundFunctions;
+  std::vector<std::string> foundFunctions;
 
 public:
   NOPInjector( Obfuscator obf ) : Obfuscator( obf ) {
@@ -17,9 +17,9 @@ public:
     randomX = rand() % 10 + 1;
     randomY = rand() % 50 + 1;
   }
-  std::string findRegexMatches( std::string str, std::regex reg );
+  std::vector<std::string> findRegexMatches( std::string str, std::regex reg );
   bool findFuncDefinitions();          // returns string with definitions
-  bool findFunctionsPos();             // return positions of found functions
+  bool findPositions();                // return positions of found functions
   bool injectForLoops( const char * );
 
   bool findKeywords();
@@ -27,7 +27,7 @@ public:
   bool injectOR();
 
   int getRandomValues( bool );
-  std::string getFoundFunctions() { return foundFunctions; };
+  std::vector<std::string> getFoundFunctions() { return foundFunctions; };
 };
 
 #endif
