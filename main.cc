@@ -30,9 +30,10 @@ int main( int argc, char **argv ) {
   obfuscator->reload();
   obfuscator->loadFileContent();
   if( nopInjector.findFuncDefinitions() ) {
-    cout << "No functions definitions found" << endl;
+    cerr << "No functions definitions found" << endl;
     exit( 1 );
   }
+  nopInjector.findPositions( 1 );
   // Erase spaces and new line chars (TODO)
   // Change variable's and function's names
   NamesChanger namesChanger( *obfuscator );
