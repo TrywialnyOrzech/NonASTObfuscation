@@ -17,7 +17,9 @@ bool NOPInjector::findFuncDefinitions() {
   "][a-zA-Z]+(\\(((\\w)+[ ]+(\\w)+(,)*[ ]*)*\\))+[ ](\\{)+" );
   foundFunctions = findRegexMatches( code, functionsReg );
   if( foundFunctions.empty() ) {
-    cout << "Pusty strinol " << endl;
+    cerr
+    << "foundFunctions from NOPInjector class has no values. Unable to proceed."
+    << endl;
     return 1;
   }
   return 0;
@@ -49,7 +51,7 @@ bool NOPInjector::findPositions( bool choice ) {
       cerr << "foundFunctions vector is empty. Perhaps findFuncDefinitions() "
               "should be run first?"
            << endl;
-      exit( 1 );
+      return 1;
     }
     for( int i = 0; i < foundFunctions.size(); ++i ) {
       string func = foundFunctions[i];

@@ -38,12 +38,13 @@ TEST_F( obfuscationTests, quality_check ) {
 }
 
 TEST_F( obfuscationTests, nop_injector ) {
+  // Random values tests
   NOPInjector nopInjector( *obf );
   ASSERT_GE( nopInjector.getRandomValues( true ), 1 );
   ASSERT_LE( nopInjector.getRandomValues( true ), 10 );
   ASSERT_GE( nopInjector.getRandomValues( false ), 1 );
   ASSERT_LE( nopInjector.getRandomValues( false ), 50 );
-
+  // Regexp tests
   std::string variablesText =
   "#@#@^&$SF DGSint x = 2;!@DFY$float y = 2.22222;*";
   std::string functionsText = "#include <iostream>\nint main() {\nreturn 0;\n}";
@@ -64,8 +65,20 @@ TEST_F( obfuscationTests, nop_injector ) {
     std::string currentString = foundFunc[i];
     ASSERT_STREQ( currentString.c_str(), functionsCorrectResult.c_str() );
   }
+  // findFuncDefinitions tests
+  ASSERT_FALSE( nopInjector.findFuncDefinitions() );
+
   ASSERT_FALSE( nopInjector.findPositions( 1 ) );
-  
+  const std::vector<std::size_t> foundFuncPositions =
+  nopInjector.getFuncPositions();
+  ASSERT_GE( foundFuncPositions[0], 0 );
+  for( int i = 1; i < foundFuncPositions.size(); ++i ) {
+    ASSERT_GT( foundFuncPositions[i], foundFuncPositions[i - 1] );
+  }
+  // Warning: tests performed after those can fail - variables are cleared
+  //nopInjector.clearFoundFunctions();
+  //ASSERT_TRUE( nopInjector.findFuncDefinitions() );
+  //ASSERT_TRUE( nopInjector.findPositions( 1 ) );
 }
 
 // Very last test (deletes Obfuscator)

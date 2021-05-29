@@ -1,4 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void kLaYo(const vector<string> fxyt); int nR();char UqAho(char tnkYE); int cDBqLOdmOt;string tqrOXH;int main(){ vector<string> Jb{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; kLaYo(Jb); } void kLaYo(const vector<string> Jb) { for( const string &llmSeZ:Jb) { cout << &llmSeZ<< " "; } cout << nR()<< endl; } int nR(){ return 0; } char UqAho(char tnkYE) { return tnkYE+ 1; } 
+using namespace std; void YiPy(const vector<string> PEMG); int YF();char qseXNIPG(char PHcr); int bX;string pvCgurX;int main(){ vector<string> feH{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; YiPy(feH); } void YiPy(const vector<string> feH) { for( const string &LkyfPV:feH) { cout << &LkyfPV<< " "; } cout << YF()<< endl; } int YF(){ return 0; } char qseXNIPG(char PHcr) { return PHcr+ 1; } 

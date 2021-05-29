@@ -29,7 +29,10 @@ public:
 
   int getRandomValues( bool );
   std::vector<std::string> getFoundFunctions() { return foundFunctions; };
-  std::vector<std::size_t> getfuncPositions() { return funcPositions; };
+  std::vector<std::size_t> getFuncPositions() { return funcPositions; };
+
+  void clearFoundFunctions() { foundFunctions.clear(); };
+  void clearFuncPositions() { funcPositions.clear(); };
 };
 
 #endif
