@@ -58,9 +58,9 @@ TEST_F( obfuscationTests, nop_injector ) {
   const std::string variablesCorrectResult = "int x = 2;\nfloat y = 2.22222";
   const std::string functionsCorrectResult = "int main() {\n";
 
+  std::string foundFunc =
   nopInjector.findRegexMatches( functionsText, functionsReg );
-  std::string foundFunc = nopInjector.getFoundFunctions();
-  ASSERT_STREQ(foundFunc.c_str(), functionsCorrectResult.c_str());
+  ASSERT_STREQ( foundFunc.c_str(), functionsCorrectResult.c_str() );
 }
 
 // Very last test (deletes Obfuscator)

@@ -17,7 +17,7 @@ public:
     randomX = rand() % 10 + 1;
     randomY = rand() % 50 + 1;
   }
-  void findRegexMatches( std::string str, std::regex reg );
+  std::string findRegexMatches( std::string str, std::regex reg );
   bool findFuncDefinitions();          // returns string with definitions
   bool findFunctionsPos();             // return positions of found functions
   bool injectForLoops( const char * );

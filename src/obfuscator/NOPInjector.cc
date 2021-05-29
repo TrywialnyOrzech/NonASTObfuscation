@@ -15,11 +15,13 @@ bool NOPInjector::findFuncDefinitions() {
   const regex functionsReg(
   "(bool||char||double||float||int||long||short||void)[ "
   "][a-zA-Z]+(\\(((\\w)+[ ]+(\\w)+(,)*[ ]*)*\\))+[ ](\\{)+" );
-
+  foundFunctions = findRegexMatches( code, functionsReg );
+  if (foundFunctions.empty())
+    return 1;
   return 0;
 }
 
-void NOPInjector::findRegexMatches( string str, regex reg ) {
+string NOPInjector::findRegexMatches( string str, regex reg ) {
   string results;
   sregex_iterator currentMatch( str.begin(), str.end(), reg );
   sregex_iterator lastMatch;
@@ -28,7 +30,7 @@ void NOPInjector::findRegexMatches( string str, regex reg ) {
     results.append( match.str() + "\n" );
     ++currentMatch;
   }
-  foundFunctions = results;
+  return results;
 }
 
 bool NOPInjector::injectForLoops( const char *fileContent ) {
