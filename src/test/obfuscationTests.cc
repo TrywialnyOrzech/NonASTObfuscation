@@ -43,9 +43,24 @@ TEST_F( obfuscationTests, nop_injector ) {
   ASSERT_LE( nopInjector.getRandomValues( true ), 10 );
   ASSERT_GE( nopInjector.getRandomValues( false ), 1 );
   ASSERT_LE( nopInjector.getRandomValues( false ), 50 );
+
   std::string variablesText =
   "#@#@^&$SF DGSint x = 2;!@DFY$float y = 2.22222;*";
   std::string functionsText = "#include <iostream>\nint main() {\nreturn 0;\n}";
+
+  const std::regex variablesReg(
+  "(bool||char||double||float||int||long||short||void)[ ][a-zA-Z]+[ ](=)[ "
+  "][0-9]+(.)?[0-9]*" );
+  const std::regex functionsReg(
+  "(bool||char||double||float||int||long||short||void)[ "
+  "][a-zA-Z]+(\\(((\\w)+[ ]+(\\w)+(,)*[ ]*)*\\))+[ ](\\{)+" );
+
+  const std::string variablesCorrectResult = "int x = 2;\nfloat y = 2.22222";
+  const std::string functionsCorrectResult = "int main() {\n";
+
+  nopInjector.findRegexMatches( functionsText, functionsReg );
+  std::string foundFunc = nopInjector.getFoundFunctions();
+  ASSERT_STREQ(foundFunc.c_str(), functionsCorrectResult.c_str());
 }
 
 // Very last test (deletes Obfuscator)

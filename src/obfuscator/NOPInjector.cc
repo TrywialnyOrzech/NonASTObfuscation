@@ -21,8 +21,7 @@ bool NOPInjector::findFuncDefinitions() {
 
 void NOPInjector::findRegexMatches( string str, regex reg ) {
   string results;
-  sregex_iterator currentMatch(
-  str.begin(), str.end(), reg );
+  sregex_iterator currentMatch( str.begin(), str.end(), reg );
   sregex_iterator lastMatch;
   while( currentMatch != lastMatch ) {
     smatch match = *currentMatch;
