@@ -43,6 +43,9 @@ TEST_F( obfuscationTests, nop_injector ) {
   ASSERT_LE( nopInjector.getRandomValues( true ), 10 );
   ASSERT_GE( nopInjector.getRandomValues( false ), 1 );
   ASSERT_LE( nopInjector.getRandomValues( false ), 50 );
+  std::string variablesText =
+  "#@#@^&$SF DGSint x = 2;!@DFY$float y = 2.22222;*";
+  std::string functionsText = "#include <iostream>\nint main() {\nreturn 0;\n}";
 }
 
 // Very last test (deletes Obfuscator)

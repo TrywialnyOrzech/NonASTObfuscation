@@ -25,7 +25,7 @@ int main( int argc, char **argv ) {
   // Delete comments (TODO)
   // Add NOP equivalents
   NOPInjector nopInjector( *obfuscator );
-  obfuscator = &nopInjector;
+  obfuscator = &nopInjector;  
   // czy tu tez reload i loadfilecontent?
 
   // Erase spaces and new line chars (TODO)
