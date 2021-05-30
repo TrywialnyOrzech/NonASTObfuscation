@@ -76,10 +76,19 @@ TEST_F( obfuscationTests, nop_injector ) {
   for( int i = 1; i < foundFuncPositions.size(); ++i ) {
     ASSERT_GT( foundFuncPositions[i], foundFuncPositions[i - 1] );
   }
+
+  ASSERT_FALSE( nopInjector.findVarDefinitions() );
+  ASSERT_FALSE( nopInjector.findPositions( 0 ) );
+  const std::vector<std::size_t> foundVarPositions =
+  nopInjector.getVarPositions();
+  ASSERT_GE( foundVarPositions[0], 0 );
+  for( int i = 1; i < foundVarPositions.size(); ++i ) {
+    ASSERT_GT( foundVarPositions[i], foundVarPositions[i - 1] );
+  }
   // Warning: tests performed after those can fail - variables are cleared
-  //nopInjector.clearFoundFunctions();
-  //ASSERT_TRUE( nopInjector.findFuncDefinitions() );
-  //ASSERT_TRUE( nopInjector.findPositions( 1 ) );
+  // nopInjector.clearFoundFunctions();
+  // ASSERT_TRUE( nopInjector.findFuncDefinitions() );
+  // ASSERT_TRUE( nopInjector.findPositions( 1 ) );
 }
 
 // Very last test (deletes Obfuscator)
