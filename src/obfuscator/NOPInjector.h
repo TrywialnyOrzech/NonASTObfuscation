@@ -13,15 +13,12 @@ class NOPInjector : public Obfuscator {
   std::vector<std::size_t> funcPositions;
 
 public:
-  NOPInjector( Obfuscator obf ) : Obfuscator( obf ) {
-    srand( time( NULL ) );
-    randomX = rand() % 10 + 1;
-    randomY = rand() % 50 + 1;
-  }
+  NOPInjector( Obfuscator obf ) : Obfuscator( obf ) {}
+  void randomNoGen();
   std::vector<std::string> findRegexMatches( std::string str, std::regex reg );
   bool findFuncDefinitions();          // returns string with definitions
   bool findPositions( bool );          // return positions of found functions
-  bool injectForLoops( const char * );
+  bool injectForLoops();
 
   bool findKeywords();
   bool injectZeros();

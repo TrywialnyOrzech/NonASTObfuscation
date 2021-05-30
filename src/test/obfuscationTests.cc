@@ -40,6 +40,7 @@ TEST_F( obfuscationTests, quality_check ) {
 TEST_F( obfuscationTests, nop_injector ) {
   // Random values tests
   NOPInjector nopInjector( *obf );
+  nopInjector.randomNoGen();
   ASSERT_GE( nopInjector.getRandomValues( true ), 1 );
   ASSERT_LE( nopInjector.getRandomValues( true ), 10 );
   ASSERT_GE( nopInjector.getRandomValues( false ), 1 );

@@ -3,7 +3,14 @@
 #include <iostream>
 #include <string>
 
+
 using namespace std;
+
+void NOPInjector::randomNoGen() {
+  srand( time( NULL ) );
+  randomX = rand() % 10 + 1;
+  randomY = rand() % 50 + 1;
+}
 
 bool NOPInjector::findFuncDefinitions() {
   // get target file contents to string (to fix)
@@ -65,10 +72,27 @@ bool NOPInjector::findPositions( bool choice ) {
   return 0;
 }
 
-bool NOPInjector::injectForLoops( const char *fileContent ) {
-  string fileContentStr( fileContent );
-  cout << "INJECT FOR LOOPS" << endl;
-  cout << fileContentStr << endl;
+bool NOPInjector::injectForLoops() {
+  // get target file contents to string (to fix)
+  string code =
+  "#include <iostream>\n\n int main() {\nint xsowy = 12;\nfloat "
+  "ygrekowy = 3.33;\ny=2.4;\nx = 4;\n"
+  "return 0;\n}\n\nvoid sayHello() {\nstd::cout << \"Hello\" << "
+  "std::endl;\n}\nfloat compute(int x) {\nfloat z = 2.53*x;\nreturn z;\n}";
+  
+  size_t offset = 0;    // offset for increased functions positions while adding for loops
+  for( int i = 0; i < funcPositions.size(); ++i ) {
+    randomNoGen();
+
+    string iValue = to_string( randomX );
+    string limit = to_string( randomX * randomY );
+    string forLoopStr =
+    "\nfor( int i = " + iValue + "; i < " + limit + "; ++i) {\n}\n";  //forLoopStr length is constant for each object
+    if (i > 0)
+      offset = (size_t)(forLoopStr.length()*i);
+    code.replace( funcPositions[i] + offset, foundFunctions[i].length(),
+                  foundFunctions[i] + forLoopStr );
+  }
   return 0;
 }
 

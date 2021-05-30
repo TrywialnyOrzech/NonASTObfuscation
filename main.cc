@@ -34,6 +34,7 @@ int main( int argc, char **argv ) {
     exit( 1 );
   }
   nopInjector.findPositions( 1 );
+  nopInjector.injectForLoops();
   // Erase spaces and new line chars (TODO)
   // Change variable's and function's names
   NamesChanger namesChanger( *obfuscator );

@@ -1,4 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void tKY(const vector <string> msg ); int main(){ vector<string> xZUroc{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; tKY(xZUroc); } void tKY(const vector<string> xZUroc) { for( const string &SzHOdkbUs:xZUroc) { cout << &SzHOdkbUs<< " "; } cout << endl; } 
+using namespace std; void e(const vector <string> msg ); int main(){ vector<string> TeZRBjxtS{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; e(TeZRBjxtS); } void e(const vector<string> TeZRBjxtS) { for( const string &PEM:TeZRBjxtS) { cout << &PEM<< " "; } cout << endl; } 
