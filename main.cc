@@ -1,4 +1,5 @@
 #include "src/obfuscator/FilesCompiler.h"
+#include "src/obfuscator/NOPInjector.h"
 #include "src/obfuscator/NamesChanger.h"
 #include "src/obfuscator/Obfuscator.h"
 #include "src/obfuscator/QualityChecker.h"
@@ -22,7 +23,20 @@ int main( int argc, char **argv ) {
   }
   Obfuscator *obfuscator = new Obfuscator( sources );
   // Delete comments (TODO)
-  // Add NOP equivalents (TODO)
+  // Add NOP equivalents
+  NOPInjector nopInjector( *obfuscator );
+  obfuscator = &nopInjector;
+  obfuscator->reload();
+  obfuscator->loadFileContent();
+  if( nopInjector.findFuncDefinitions() ) {
+    cerr << "No functions definitions found" << endl;
+    exit( 1 );
+  }
+  nopInjector.findPositions( 1 );
+  nopInjector.injectForLoops();
+  nopInjector.findVarDefinitions();
+  nopInjector.findPositions( 0 );
+  nopInjector.injectZeros();
   // Erase spaces and new line chars (TODO)
   // Change variable's and function's names
   NamesChanger namesChanger( *obfuscator );
