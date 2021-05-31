@@ -130,6 +130,43 @@ bool NOPInjector::injectForLoops() {
   return 0;
 }
 
+bool NOPInjector::injectZeros() {
+  if( varPositions.size() == 0 ) {
+    cerr << "varPositions variable is empty. Perhaps findPositions(0) should "
+            "be ran first?"
+         << endl;
+    exit( 1 );
+  }
+  // get target file contents to string (to fix)
+  string code =
+  "#include <iostream>\n\n int main() {\nint xsowy = 12;\nfloat "
+  "ygrekowy = 3.33;\ny=2.4;\nx = 4;\n"
+  "return 0;\n}\n\nvoid sayHello() {\nstd::cout << \"Hello\" << "
+  "std::endl;\n}\nfloat compute(int x) {\nfloat z = 2.53;\nreturn z;\n}";
+  string zero = " + 0";
+  size_t offset = 0;
+  for( int i = 0; i < varPositions.size(); ++i ) {
+    if( i > 0 )
+      offset = ( size_t )( zero.length() * i );          // nawiasy, liczba, +0!
+    // napisz tu taki replace zeby uwzglednial nawiay dla int x = (1 + 0) * 2
+    string currentVar = foundVars[i];
+    char lastChar = currentVar.back();
+    string lastCharStr( 1, lastChar );
+    if( lastCharStr == ";" ) {
+      currentVar.pop_back();
+      code.replace( varPositions[i] + offset, foundVars[i].length() - 1,
+                    currentVar + zero );
+    } else {
+      code.replace( varPositions[i] + offset, foundVars[i].length(),
+                    foundVars[i] + zero );
+    }
+    cout << "========================" << endl;
+    cout << "Dla i = " << i << "kod to:  " << endl;
+    cout << code << endl;
+  }
+  return 0;
+}
+
 int NOPInjector::getRandomValues( bool choice ) {
   if( choice )
     return randomX;
