@@ -26,7 +26,6 @@ int main( int argc, char **argv ) {
   // Add NOP equivalents
   NOPInjector nopInjector( *obfuscator );
   obfuscator = &nopInjector;
-  // czy tu tez reload i loadfilecontent?
   obfuscator->reload();
   obfuscator->loadFileContent();
   if( nopInjector.findFuncDefinitions() ) {
