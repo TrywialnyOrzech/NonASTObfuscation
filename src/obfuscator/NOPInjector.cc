@@ -147,8 +147,7 @@ bool NOPInjector::injectZeros() {
   size_t offset = 0;
   for( int i = 0; i < varPositions.size(); ++i ) {
     if( i > 0 )
-      offset = ( size_t )( zero.length() * i );          // nawiasy, liczba, +0!
-    // napisz tu taki replace zeby uwzglednial nawiay dla int x = (1 + 0) * 2
+      offset = ( size_t )( zero.length() * i );
     string currentVar = foundVars[i];
     char lastChar = currentVar.back();
     string lastCharStr( 1, lastChar );
@@ -160,9 +159,6 @@ bool NOPInjector::injectZeros() {
       code.replace( varPositions[i] + offset, foundVars[i].length(),
                     foundVars[i] + zero );
     }
-    cout << "========================" << endl;
-    cout << "Dla i = " << i << "kod to:  " << endl;
-    cout << code << endl;
   }
   return 0;
 }
