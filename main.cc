@@ -4,6 +4,7 @@
 #include "src/obfuscator/Obfuscator.h"
 #include "src/obfuscator/QualityChecker.h"
 #include "src/obfuscator/SourcesController.h"
+#include "src/obfuscator/TrigraphSequencesInjector.h"
 #include <iostream>
 #include <string>
 
@@ -49,7 +50,11 @@ int main( int argc, char **argv ) {
   }
   // Add escape sequences (TODO)
   // Add ?: operator (TODO)
-  // Add trigraph sequences (TODO)
+  // Add trigraph sequences
+  TrigraphSequencesInjector triSeqInjector( *obfuscator );
+  triSeqInjector.findReplacements();
+  triSeqInjector.findPositions();
+  triSeqInjector.injectTrigraphSequences();
   // Check code quality
   QualityChecker qualityChecker( *obfuscator );
   obfuscator = &qualityChecker;

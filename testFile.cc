@@ -11,9 +11,10 @@ int globalVar;
 string globalVarString;
 
 int main() {
-  vector<string> msg{ "Hello", "C++",     "World",
-                      "from",  "VS Code", "and the C++ extension!!" };
-  printWords( msg );
+  // vector<string> msg{ "Hello", "C++",     "World",
+  //                     "from",  "VS Code", "and the C++ extension!!" };
+  string msg = "Hello C++ World from VS Code";
+  //printWords( msg );
 }
 
 void printWords( const vector<string> msg ) {

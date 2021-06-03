@@ -1,4 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void FARDW(const vector<string> Efzfs); int UQtEsMIi();char SEWxbC(char niLUKd); int gjfMiL;string KHYfLQrvy;int main(){ vector<string> pCo{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; FARDW(pCo); } void FARDW(const vector<string> pCo) { for( const string &dqKtYWNLbN:pCo) { cout << &dqKtYWNLbN<< " "; } cout << UQtEsMIi()<< endl; } int UQtEsMIi(){ return 0; } char SEWxbC(char niLUKd) { return niLUKd+ 1; } 
+using namespace std; void bNl(const vector<string> bQO); int Cec();char IBkLfuvnuE(char L); int tdxYvLibW;string HiKbk;int main(){ // vector<string> gXr{"Hello", "C++", "World", // "from", "VS Code", "and the C++ extension!!" }; string gXr= "Hello C++ World from VS Code"; //printWords( gXr); } void bNl(const vector<string> gXr) { for( const string &PTPvPAfPj:gXr) { cout << &PTPvPAfPj<< " "; } cout << Cec()<< endl; } int Cec(){ return 0; } char IBkLfuvnuE(char L) { return L+ 1; } 
