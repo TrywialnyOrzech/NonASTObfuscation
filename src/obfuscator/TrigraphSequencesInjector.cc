@@ -24,10 +24,6 @@ bool TrigraphSequencesInjector::findReplacements() {
                 "{\nint x[4];\n// ZNAK ^\n//ZNAK |\n //ZNAK ~\n}";
   const regex triSeqReg( "(\\[|\\]|\\{|\\}|#|\\^|\\||~)" );
   foundReplacements = findRegexMatches( code, triSeqReg );
-  cout << "TRIGRAPH SEQ" << endl;
-  for( int i = 0; i < foundReplacements.size(); ++i ) {
-    cout << foundReplacements[i] << endl;
-  }
   return 0;
 }
 
@@ -47,10 +43,6 @@ bool TrigraphSequencesInjector::findPositions() {
     foundPositions.push_back( code.find( func, bypass ) );
     bypass = foundPositions[i];
   }
-  cout << "Znalezione pozycje to: " << endl;
-  for( int i = 0; i < foundPositions.size(); ++i ) {
-    cout << foundPositions[i] << endl;
-  }
   return 0;
 }
 
@@ -63,7 +55,7 @@ bool TrigraphSequencesInjector::injectTrigraphSequences() {
   const int trigraphSequenceLength = 3;
   const int replacementLength = 1;
   for( int i = 0; i < foundPositions.size(); ++i ) {
-    offset = ( size_t )( (trigraphSequenceLength-1) * i );
+    offset = ( size_t )( ( trigraphSequenceLength - 1 ) * i );
     string replacementStr = foundReplacements[i];
     char replacement = replacementStr[0];
     switch( replacement ) {
@@ -98,6 +90,5 @@ bool TrigraphSequencesInjector::injectTrigraphSequences() {
       break;
     }
   }
-  cout << code << endl;
   return 0;
 }
