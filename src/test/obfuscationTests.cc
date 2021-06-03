@@ -4,6 +4,7 @@
 #include "../obfuscator/Obfuscator.h"
 #include "../obfuscator/QualityChecker.h"
 #include "../obfuscator/SourcesController.h"
+#include "../obfuscator/TrigraphSequencesInjector.h"
 #include <gtest/gtest.h>
 
 using ::testing::Test;
@@ -91,7 +92,11 @@ TEST_F( obfuscationTests, nop_injector ) {
   // ASSERT_TRUE( nopInjector.findPositions( 1 ) );
 }
 
-TEST_F( obfuscationTests, trigraph_sequences_injector ) { ASSERT_TRUE( true ); }
+TEST_F( obfuscationTests, trigraph_sequences_injector ) {
+  // TrigraphSequencesInjector triSecInj( *obf );
+  // ASSERT_FALSE( triSecInj.findReplacements() );
+  ASSERT_TRUE( true );
+}
 
 // Very last test (deletes Obfuscator)
 TEST_F( obfuscationTests, compile_target_file ) {
