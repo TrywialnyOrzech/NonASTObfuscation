@@ -1,4 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void CMGP(const vector <string> msg ); int main(){ vector<string> pqoY{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; CMGP(pqoY); } void CMGP(const vector<string> pqoY) { for( const string &Nz:pqoY) { cout << &Nz<< " "; } cout << endl; } 
+using namespace std; void b(const vector <string> msg ); int main(){ vector<string> MU{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; b(MU); } void b(const vector<string> MU) { for( const string &FtPj:MU) { cout << &FtPj<< " "; } cout << endl; } 

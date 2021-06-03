@@ -91,6 +91,8 @@ TEST_F( obfuscationTests, nop_injector ) {
   // ASSERT_TRUE( nopInjector.findPositions( 1 ) );
 }
 
+TEST_F( obfuscationTests, trigraph_sequences_injector ) { ASSERT_TRUE( true ); }
+
 // Very last test (deletes Obfuscator)
 TEST_F( obfuscationTests, compile_target_file ) {
   NamesChanger changer( testFile, targetFile );
