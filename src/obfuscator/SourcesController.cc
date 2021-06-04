@@ -6,16 +6,20 @@ void SourcesController::init() {
   printState( "Opening source file..." );
   loadSourceFile( sourceName );
   loadTargetFile( targetName );
+  loadStringStream();
 }
 void SourcesController::reload() {
-  printState( "Reopening files..." );
-  close();
-  sourceFile.clear();
-  sourceFile.seekg( 0, ios::beg );
-  targetFile.clear();
-  targetFile.seekg( 0, ios::beg );
-  loadSourceFile( sourceName );
-  targetFile.open( targetName, fstream::in | fstream::out );
+  // printState( "Reopening files..." );
+  // close();
+  // sourceFile.clear();
+  // sourceFile.seekg( 0, ios::beg );
+  // targetFile.clear();
+  // targetFile.seekg( 0, ios::beg );
+  // loadSourceFile( sourceName );
+  // targetFile.open( targetName, fstream::in | fstream::out );
+  editStream.clear();
+  editStream << targetStream.str();
+  targetStream.clear();
 }
 
 void SourcesController::loadSourceFile( const string &name ) {
@@ -49,7 +53,7 @@ string SourcesController::getOriginalFilePath() { return sourceName; }
 string SourcesController::getTargetFilePath() { return targetName; }
 
 bool SourcesController::readWord( string *word ) {
-  if( sourceFile >> *word )
+  if( editStream >> *word )
     return true;
   else {
     return false;
@@ -67,4 +71,11 @@ bool SourcesController::readLine( string *word, bool whichFile ) {
   return false;
 }
 
-void SourcesController::writeWord( string word ) { targetFile << word; }
+void SourcesController::writeWord( string word ) { targetStream << word; }
+
+void SourcesController::loadStringStream() {
+  string line;
+  while( getline( sourceFile, line ) ) {
+    editStream << line;
+  }
+}

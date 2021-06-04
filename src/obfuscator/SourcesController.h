@@ -2,6 +2,7 @@
 #define SOURCESCONTROLLER_H
 
 #include <fstream>
+#include <sstream>
 #include <string>
 class SourcesController {
 public:
@@ -19,6 +20,7 @@ public:
   void init();
   void reload();
   void close() {
+    targetFile << targetStream.str();
     sourceFile.close();
     targetFile.close();
   }
@@ -37,6 +39,8 @@ public:
 
   void writeWord( std::string word );
 
+  void loadStringStream();
+
   void operator=( const SourcesController &src ) {
     sourceName = src.sourceName;
     targetName = src.targetName;
@@ -51,6 +55,8 @@ protected:
   std::string targetName;
   std::fstream sourceFile;
   std::fstream targetFile;
+  std::stringstream editStream;
+  std::stringstream targetStream;
 };
 
 #endif
