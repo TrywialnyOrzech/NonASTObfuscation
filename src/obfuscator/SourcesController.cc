@@ -60,9 +60,9 @@ bool SourcesController::readWord( string *word ) {
   }
 }
 
-bool SourcesController::readLine( string *word, bool whichFile ) {
-  if( whichFile ) {
-    if( getline( targetFile, *word ) )
+bool SourcesController::readLine( string *word, bool ifTarget = false ) {
+  if( ifTarget ) {
+    if( getline( targetStream, *word ) )
       return true;
   } else {
     if( getline( sourceFile, *word ) )
