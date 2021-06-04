@@ -18,6 +18,8 @@ public:
   bool findStrings();
   bool findPositions();
   bool injectEscapeSequences();
+  bool convertCharsToHex( std::string );
+  std::string getEscapeSequence( std::string hexVal );
 
   std::vector<std::string> getFoundStrings() { return foundStrings; };
   std::vector<std::size_t> getFoundPositions() { return foundPositions; };

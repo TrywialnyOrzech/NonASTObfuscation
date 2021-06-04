@@ -1,3 +1,4 @@
+#include "src/obfuscator/EscapeSequencesInjector.h"
 #include "src/obfuscator/FilesCompiler.h"
 #include "src/obfuscator/NOPInjector.h"
 #include "src/obfuscator/NamesChanger.h"
@@ -5,7 +6,6 @@
 #include "src/obfuscator/QualityChecker.h"
 #include "src/obfuscator/SourcesController.h"
 #include "src/obfuscator/TrigraphSequencesInjector.h"
-#include "src/obfuscator/EscapeSequencesInjector.h"
 #include <iostream>
 #include <string>
 
@@ -52,6 +52,14 @@ int main( int argc, char **argv ) {
   // Add escape sequences
   EscapeSequencesInjector escSeqInjector( *obfuscator );
   escSeqInjector.findStrings();
+  escSeqInjector.findPositions();
+  string asd = "abcdefg";
+  string asdd = "61";
+  string asddd = "62";
+  //escSeqInjector.convertCharsToHex(asd);
+  cout << "UWAGA UWAGA UWAGA" << endl;
+  string literaA = escSeqInjector.getEscapeSequence(asdd);
+  cout << literaA << endl;
   // Add ?: operator (TODO)
   // Add trigraph sequences
   TrigraphSequencesInjector triSeqInjector( *obfuscator );
