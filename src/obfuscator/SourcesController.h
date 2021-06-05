@@ -2,6 +2,7 @@
 #define SOURCESCONTROLLER_H
 
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <string>
 class SourcesController {
@@ -17,6 +18,7 @@ public:
   }
   void loadSourceFile( const std::string &name );
   void loadTargetFile( const std::string &name );
+  std::string readWholeFile( bool ifTarget );
   void init();
   void reload();
   void close() {
@@ -44,10 +46,16 @@ public:
   void operator=( const SourcesController &src ) {
     sourceName = src.sourceName;
     targetName = src.targetName;
+    std::cout << "SOURCE\n" << src.sourceStream.str() << std::endl << std::endl;
+    std::cout << src.targetStream.str() << std::endl << std::endl;
+    sourceStream << src.sourceStream.str();
+    targetStream << src.targetStream.str();
   }
   SourcesController( const SourcesController &src ) {
     sourceName = src.sourceName;
     targetName = src.targetName;
+    sourceStream << src.sourceStream.str();
+    targetStream << src.targetStream.str();
   }
 
 protected:
@@ -55,7 +63,7 @@ protected:
   std::string targetName;
   std::fstream sourceFile;
   std::fstream targetFile;
-  std::stringstream editStream;
+  std::stringstream sourceStream;
   std::stringstream targetStream;
 };
 

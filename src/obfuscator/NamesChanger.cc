@@ -11,21 +11,15 @@ using namespace std;
 
 void NamesChanger::changeVariablesNames() {
   srand( (unsigned)time( NULL ) );
-  string code = "start reading";
-  string toReplace = "word";
+  string code;
 
   set<string> keyVariableWords{ "int",  "float",       "string", "short",
                                 "long", "double",      "char",   "bool",
                                 "void", "vector<\\w+>" };
 
   bool catchVariable = false;
-  string variableName;
-  regex mainFunctionReg( "(main())" );
-  regex anyFun( "(.*)(\\(.*\\);)" );
-  regex varNameOnly( "(;$)|$" );
-  smatch m, n;
+  smatch m;
   enum Endings { none, semicolon, colon, brace };
-  int i = 1;
   while( src.readWord( &code ) ) {
     for( auto it = keyVariableWords.begin(); it != keyVariableWords.end();
          ++it ) {
@@ -123,26 +117,3 @@ void NamesChanger::clearAndTagEnding( int type, char character, string *word,
   }
 }
 void NamesChanger::changeFunctionNames() {}
-//   string code;
-//   map<string, string> variables;
-//   set<string> keyVariableWords{ "int",    "float", "string", "short",
-//   "long",
-//                                 "double", "char",  "bool",   "void" };
-//   bool catchFuncion = false;
-//   smatch m;
-//   while( getline( src->getSourceFile(), code ) ) {
-
-//     src->getTargetFile() << "code: " << code << endl;
-//     for( auto it = keyVariableWords.begin(); it != keyVariableWords.end();
-//          ++it ) {
-//       regex variableRegex( *it + "\\s+\\w+\\(*" );
-//       // cout << "- ";
-//       while( regex_search( code, m, variableRegex ) ) {
-//         for( auto x: m )
-//           src->getTargetFile() << x << " ";
-//         code = m.suffix().str();
-//         src->getTargetFile() << "New iteration:" << endl;
-//       }
-//     }
-//   }
-// }

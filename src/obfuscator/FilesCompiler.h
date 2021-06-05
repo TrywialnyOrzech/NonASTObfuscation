@@ -12,6 +12,7 @@ public:
   ~FilesCompiler() {}
   static bool fileCompilation( std::string filename );
   bool initialCompilation();
+  static bool fileFormatting( std::string filename );
 };
 
 #endif

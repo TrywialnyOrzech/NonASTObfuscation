@@ -59,11 +59,12 @@ int main( int argc, char **argv ) {
   QualityChecker qualityChecker( *obfuscator );
   obfuscator = &qualityChecker;
   obfuscator->reload();
-  obfuscator->loadFileContent();
+  // obfuscator->loadFileContent();
   string x = "1234567890";
   string y = "12345678901";
   const char *source = x.c_str();
   const char *target = y.c_str();
   obfuscator->rateCodeLength( source, target );
+  obfuscator->close();
   return 0;
 }
