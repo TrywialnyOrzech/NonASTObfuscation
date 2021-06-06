@@ -20,11 +20,14 @@ public:
   virtual void init();
   virtual void loadFileContent(){};
   virtual int rateCodeLength( char const *, char const * ) { return false; };
+  virtual void rebuildIfStatement() {}
   void reload();
   void close();
 
 protected:
   SourcesController src;
+  const bool READSOURCE = false;
+  const bool READTARGET = true;
 };
 
 #endif

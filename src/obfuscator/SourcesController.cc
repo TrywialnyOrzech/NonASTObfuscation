@@ -65,7 +65,7 @@ bool SourcesController::readLine( string *word, bool ifTarget = false ) {
     if( getline( targetStream, *word ) )
       return true;
   } else {
-    if( getline( sourceFile, *word ) )
+    if( getline( sourceStream, *word ) )
       return true;
   }
   return false;

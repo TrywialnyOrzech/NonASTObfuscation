@@ -1,4 +1,5 @@
 #include "src/obfuscator/FilesCompiler.h"
+#include "src/obfuscator/IfConditionChanger.h"
 #include "src/obfuscator/NOPInjector.h"
 #include "src/obfuscator/NamesChanger.h"
 #include "src/obfuscator/Obfuscator.h"
@@ -48,23 +49,27 @@ int main( int argc, char **argv ) {
     obfuscator->init();
     obfuscator->changeVariablesNames();
   }
-  // Add escape sequences (TODO)
-  // Add ?: operator (TODO)
-  // Add trigraph sequences
-  TrigraphSequencesInjector triSeqInjector( *obfuscator );
-  triSeqInjector.findReplacements();
-  triSeqInjector.findPositions();
-  triSeqInjector.injectTrigraphSequences();
-  // Check code quality
-  QualityChecker qualityChecker( *obfuscator );
-  obfuscator = &qualityChecker;
+  // // Add escape sequences (TODO)
+  // // Add ?: operator (TODO)
+  // // Add trigraph sequences
+  // TrigraphSequencesInjector triSeqInjector( *obfuscator );
+  // triSeqInjector.findReplacements();
+  // triSeqInjector.findPositions();
+  // triSeqInjector.injectTrigraphSequences();
+  // // Check code quality
+  // QualityChecker qualityChecker( *obfuscator );
+  // obfuscator = &qualityChecker;
+  // obfuscator->reload();
+  // // obfuscator->loadFileContent();
+  // string x = "1234567890";
+  // string y = "12345678901";
+  // const char *source = x.c_str();
+  // const char *target = y.c_str();
+  // obfuscator->rateCodeLength( source, target );
+  IfConditionChanger ifConditionChanger( *obfuscator );
+  obfuscator = &ifConditionChanger;
   obfuscator->reload();
-  // obfuscator->loadFileContent();
-  string x = "1234567890";
-  string y = "12345678901";
-  const char *source = x.c_str();
-  const char *target = y.c_str();
-  obfuscator->rateCodeLength( source, target );
+  obfuscator->rebuildIfStatement();
   obfuscator->close();
   return 0;
 }
