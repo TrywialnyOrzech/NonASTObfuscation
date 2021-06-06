@@ -1,4 +1,2 @@
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std; void KV(const vector <string> msg ); int main(){ vector<string> RnE{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; KV(RnE); } void KV(const vector<string> RnE) { for( const string &XgfaflZ:RnE) { cout << &XgfaflZ<< " "; } cout << endl; } 
+#include <iostream>#include
+<string>#include <vector>using namespace std;void printWords( const vector<string> XIDLEFxOXg);int main() { vector<string> Tjgy{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; printWords( Tjgy);}void printWords( const vector<string> Tjgy) { for( const string &YRTowYdnZU:Tjgy) { cout << &YRTowYdnZU<< " "; } cout << endl;} 

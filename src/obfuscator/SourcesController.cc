@@ -61,12 +61,19 @@ bool SourcesController::readWord( string *word ) {
 }
 
 bool SourcesController::readLine( string *word, bool ifTarget = false ) {
+  string temp;
   if( ifTarget ) {
-    if( getline( targetStream, *word ) )
-      return true;
+    do {
+      getline( targetStream, temp );
+      *word += temp;
+    } while( temp != "\n" );
+    return true;
   } else {
-    if( getline( sourceStream, *word ) )
-      return true;
+    do {
+      getline( sourceStream, temp );
+      *word += temp;
+    } while( temp.find( "\n" ) != string::npos );
+    return true;
   }
   return false;
 }
@@ -76,7 +83,7 @@ void SourcesController::writeWord( string word ) { targetStream << word; }
 void SourcesController::loadStringStream() {
   string line;
   while( getline( sourceFile, line ) ) {
-    sourceStream << line;
+    sourceStream << line << "\n";
   }
 }
 

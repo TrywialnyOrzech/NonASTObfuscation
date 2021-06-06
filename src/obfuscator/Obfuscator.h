@@ -21,6 +21,7 @@ public:
   virtual void loadFileContent(){};
   virtual int rateCodeLength( char const *, char const * ) { return false; };
   virtual void rebuildIfStatement() {}
+  virtual void cleanComments() {}
   void reload();
   void close();
 

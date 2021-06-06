@@ -75,7 +75,7 @@ void NamesChanger::changeVariablesNames() {
       }
     }
     if( code.compare( "#include" ) == 0 ) {
-      string nextLine = "";
+      string nextLine( "" );
       src.readWord( &nextLine );
       src.writeWord( code );
       src.writeWord( " " );

@@ -1,3 +1,4 @@
+#include "src/obfuscator/CommentsCleaner.h"
 #include "src/obfuscator/FilesCompiler.h"
 #include "src/obfuscator/IfConditionChanger.h"
 #include "src/obfuscator/NOPInjector.h"
@@ -25,51 +26,55 @@ int main( int argc, char **argv ) {
   }
   Obfuscator *obfuscator = new Obfuscator( sources );
   // Delete comments (TODO)
-  // Add NOP equivalents
-  NOPInjector nopInjector( *obfuscator );
-  obfuscator = &nopInjector;
-  obfuscator->reload();
-  obfuscator->loadFileContent();
-  if( nopInjector.findFuncDefinitions() ) {
-    cerr << "No functions definitions found" << endl;
-    exit( 1 );
-  }
-  nopInjector.findPositions( 1 );
-  nopInjector.injectForLoops();
-  nopInjector.findVarDefinitions();
-  nopInjector.findPositions( 0 );
-  nopInjector.injectZeros();
-  // Erase spaces and new line chars (TODO)
-  // Change variable's and function's names
-  NamesChanger namesChanger( *obfuscator );
-  FilesCompiler filesCompiler( *obfuscator );
-  obfuscator = &filesCompiler;
-  if( obfuscator->initialCompilation() ) {
-    obfuscator = &namesChanger;
-    obfuscator->init();
-    obfuscator->changeVariablesNames();
-  }
-  // // Add escape sequences (TODO)
-  // // Add ?: operator (TODO)
-  // // Add trigraph sequences
-  // TrigraphSequencesInjector triSeqInjector( *obfuscator );
-  // triSeqInjector.findReplacements();
-  // triSeqInjector.findPositions();
-  // triSeqInjector.injectTrigraphSequences();
-  // // Check code quality
-  // QualityChecker qualityChecker( *obfuscator );
-  // obfuscator = &qualityChecker;
+  CommentsCleaner commentsCleaner( *obfuscator );
+  obfuscator = &commentsCleaner;
+  obfuscator->init();
+  obfuscator->cleanComments();
+  // // Add NOP equivalents
+  // NOPInjector nopInjector( *obfuscator );
+  // obfuscator = &nopInjector;
   // obfuscator->reload();
-  // // obfuscator->loadFileContent();
-  // string x = "1234567890";
-  // string y = "12345678901";
-  // const char *source = x.c_str();
-  // const char *target = y.c_str();
-  // obfuscator->rateCodeLength( source, target );
-  IfConditionChanger ifConditionChanger( *obfuscator );
-  obfuscator = &ifConditionChanger;
-  obfuscator->reload();
-  obfuscator->rebuildIfStatement();
+  // obfuscator->loadFileContent();
+  // if( nopInjector.findFuncDefinitions() ) {
+  //   cerr << "No functions definitions found" << endl;
+  //   exit( 1 );
+  // }
+  // nopInjector.findPositions( 1 );
+  // nopInjector.injectForLoops();
+  // nopInjector.findVarDefinitions();
+  // nopInjector.findPositions( 0 );
+  // nopInjector.injectZeros();
+  // // Erase spaces and new line chars (TODO)
+  // // Change variable's and function's names
+  // NamesChanger namesChanger( *obfuscator );
+  // FilesCompiler filesCompiler( *obfuscator );
+  // obfuscator = &filesCompiler;
+  // if( obfuscator->initialCompilation() ) {
+  //   obfuscator = &namesChanger;
+  //   obfuscator->init();
+  //   obfuscator->changeVariablesNames();
+  // }
+  // // // Add escape sequences (TODO)
+  // // // Add ?: operator (TODO)
+  // // // Add trigraph sequences
+  // // TrigraphSequencesInjector triSeqInjector( *obfuscator );
+  // // triSeqInjector.findReplacements();
+  // // triSeqInjector.findPositions();
+  // // triSeqInjector.injectTrigraphSequences();
+  // // // Check code quality
+  // // QualityChecker qualityChecker( *obfuscator );
+  // // obfuscator = &qualityChecker;
+  // // obfuscator->reload();
+  // // // obfuscator->loadFileContent();
+  // // string x = "1234567890";
+  // // string y = "12345678901";
+  // // const char *source = x.c_str();
+  // // const char *target = y.c_str();
+  // // obfuscator->rateCodeLength( source, target );
+  // IfConditionChanger ifConditionChanger( *obfuscator );
+  // // obfuscator = &ifConditionChanger;
+  // // obfuscator->reload();
+  // // obfuscator->rebuildIfStatement();
   obfuscator->close();
   return 0;
 }
