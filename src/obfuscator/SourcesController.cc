@@ -13,6 +13,7 @@ void SourcesController::reload() {
   sourceStream << targetStream.str();
   targetStream.str( string() );
   loadTargetFile( targetName );
+  cout << "=========\n\n" << originalStream.str();
 }
 
 void SourcesController::loadSourceFile( const string &name ) {
@@ -76,8 +77,9 @@ void SourcesController::writeWord( string word ) { targetStream << word; }
 void SourcesController::loadStringStream() {
   string line;
   while( getline( sourceFile, line ) ) {
-    sourceStream << line << "\n";
+    originalStream << line << "\n";
   }
+  sourceStream << originalStream.str();
 }
 
 string SourcesController::readWholeFile( bool ifTarget = false ) {

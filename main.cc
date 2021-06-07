@@ -80,6 +80,7 @@ int main( int argc, char **argv ) {
   obfuscator = &ifConditionChanger;
   obfuscator->reload();
   obfuscator->rebuildIfStatement();
+  delete sources;
   obfuscator->close();
   return 0;
 }

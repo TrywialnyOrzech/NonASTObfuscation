@@ -48,12 +48,14 @@ public:
     targetName = src.targetName;
     sourceStream << src.sourceStream.str();
     targetStream << src.targetStream.str();
+    originalStream << src.originalStream.str();
   }
   SourcesController( const SourcesController &src ) {
     sourceName = src.sourceName;
     targetName = src.targetName;
     sourceStream << src.sourceStream.str();
     targetStream << src.targetStream.str();
+    originalStream << src.originalStream.str();
   }
 
 protected:
@@ -61,6 +63,7 @@ protected:
   std::string targetName;
   std::fstream sourceFile;
   std::fstream targetFile;
+  std::stringstream originalStream;
   std::stringstream sourceStream;
   std::stringstream targetStream;
 };
