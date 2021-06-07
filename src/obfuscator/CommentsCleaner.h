@@ -10,6 +10,7 @@ public:
   CommentsCleaner( Obfuscator &obf ) : Obfuscator( obf ) {}
   ~CommentsCleaner() {}
   void cleanComments();
+  void fetchWholeComment();
 
 private:
 };

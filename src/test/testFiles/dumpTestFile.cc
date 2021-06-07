@@ -1,4 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void k(const vector<string> umM); int main(){ vector<string> IDpsPBxDI{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; k(IDpsPBxDI); } void k(const vector<string> IDpsPBxDI) { for( const string &Arw:IDpsPBxDI) { cout << &Arw<< " "; } cout << endl; } 
+using namespace std; void DnwV(const vector<string> kJJ); int main(){ vector<string> OLUNaHYqdm{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; DnwV(OLUNaHYqdm); } void DnwV(const vector<string> OLUNaHYqdm) { for( const string &urf:OLUNaHYqdm) { cout << &urf<< " "; } cout << endl; } 

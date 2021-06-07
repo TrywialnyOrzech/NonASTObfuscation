@@ -27,9 +27,13 @@ int main( int argc, char **argv ) {
   Obfuscator *obfuscator = new Obfuscator( sources );
   // Delete comments (TODO)
   CommentsCleaner commentsCleaner( *obfuscator );
-  obfuscator = &commentsCleaner;
-  obfuscator->init();
-  obfuscator->cleanComments();
+  FilesCompiler filesCompiler( *obfuscator );
+  obfuscator = &filesCompiler;
+  if( obfuscator->initialCompilation() ) {
+    obfuscator = &commentsCleaner;
+    obfuscator->init();
+    obfuscator->cleanComments();
+  }
   // // Add NOP equivalents
   // NOPInjector nopInjector( *obfuscator );
   // obfuscator = &nopInjector;
@@ -46,13 +50,10 @@ int main( int argc, char **argv ) {
   // nopInjector.injectZeros();
   // // Erase spaces and new line chars (TODO)
   // // Change variable's and function's names
-  // NamesChanger namesChanger( *obfuscator );
-  // FilesCompiler filesCompiler( *obfuscator );
-  // obfuscator = &filesCompiler;
-  // if( obfuscator->initialCompilation() ) {
-  //   obfuscator = &namesChanger;
-  //   obfuscator->init();
-  //   obfuscator->changeVariablesNames();
+  NamesChanger namesChanger( *obfuscator );
+  obfuscator = &namesChanger;
+  obfuscator->reload();
+  obfuscator->changeVariablesNames();
   // }
   // // // Add escape sequences (TODO)
   // // // Add ?: operator (TODO)
@@ -71,10 +72,10 @@ int main( int argc, char **argv ) {
   // // const char *source = x.c_str();
   // // const char *target = y.c_str();
   // // obfuscator->rateCodeLength( source, target );
-  // IfConditionChanger ifConditionChanger( *obfuscator );
-  // // obfuscator = &ifConditionChanger;
-  // // obfuscator->reload();
-  // // obfuscator->rebuildIfStatement();
+  IfConditionChanger ifConditionChanger( *obfuscator );
+  obfuscator = &ifConditionChanger;
+  obfuscator->reload();
+  obfuscator->rebuildIfStatement();
   obfuscator->close();
   return 0;
 }

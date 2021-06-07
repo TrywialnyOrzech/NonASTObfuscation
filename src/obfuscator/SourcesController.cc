@@ -9,16 +9,9 @@ void SourcesController::init() {
   loadStringStream();
 }
 void SourcesController::reload() {
-  // printState( "Reopening files..." );
-  // close();
-  // sourceFile.clear();
-  // sourceFile.seekg( 0, ios::beg );
-  // targetFile.clear();
-  // targetFile.seekg( 0, ios::beg );
-  // loadSourceFile( sourceName );
-  // targetFile.open( targetName, fstream::in | fstream::out );
   sourceStream.str( string() );
   sourceStream << targetStream.str();
+  targetStream.str( string() );
   loadTargetFile( targetName );
 }
 

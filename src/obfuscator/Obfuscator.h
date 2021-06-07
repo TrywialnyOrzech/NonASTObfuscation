@@ -22,6 +22,7 @@ public:
   virtual int rateCodeLength( char const *, char const * ) { return false; };
   virtual void rebuildIfStatement() {}
   virtual void cleanComments() {}
+  virtual bool saveIncludes( std::string &code );
   void reload();
   void close();
   std::string getOutput() { return src.getOutput(); }
