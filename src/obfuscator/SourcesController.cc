@@ -13,7 +13,6 @@ void SourcesController::reload() {
   sourceStream << targetStream.str();
   targetStream.str( string() );
   loadTargetFile( targetName );
-  cout << "=========\n\n" << originalStream.str();
 }
 
 void SourcesController::loadSourceFile( const string &name ) {

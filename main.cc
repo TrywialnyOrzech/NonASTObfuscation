@@ -36,11 +36,11 @@ int main( int argc, char **argv ) {
   }
 
   // Add NOP equivalents
-  NOPInjector nopInjector( *obfuscator );
-  obfuscator = &nopInjector;
-  obfuscator->reload();
-  obfuscator->loadFileContent();
-  obfuscator->runNOPInjector();
+  // NOPInjector nopInjector( *obfuscator );
+  // obfuscator = &nopInjector;
+  // obfuscator->reload();
+  // obfuscator->loadFileContent();
+  // obfuscator->runNOPInjector();
   // // Erase spaces and new line chars (TODO)
   // // Change variable's and function's names
   NamesChanger namesChanger( *obfuscator );
@@ -51,16 +51,16 @@ int main( int argc, char **argv ) {
   // // // Add escape sequences (TODO)
   // // // Add ?: operator (TODO)
   // // // Add trigraph sequences
-  TrigraphSequencesInjector triSeqInjector( *obfuscator );
-  obfuscator = &triSeqInjector;
-  obfuscator->reload();
-  obfuscator->runTrigraphSequencesInjector();
+  // TrigraphSequencesInjector triSeqInjector( *obfuscator );
+  // obfuscator = &triSeqInjector;
+  // obfuscator->reload();
+  // obfuscator->runTrigraphSequencesInjector();
   // // // Check code quality
-  QualityChecker qualityChecker( *obfuscator );
-  obfuscator = &qualityChecker;
-  obfuscator->reload();
-  obfuscator->loadFileContent();
-  obfuscator->rateCodeLength();
+  // QualityChecker qualityChecker( *obfuscator );
+  // obfuscator = &qualityChecker;
+  // obfuscator->reload();
+  // obfuscator->loadFileContent();
+  // obfuscator->rateCodeLength();
 
   IfConditionChanger ifConditionChanger( *obfuscator );
   obfuscator = &ifConditionChanger;

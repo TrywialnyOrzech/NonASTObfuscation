@@ -1,0 +1,4 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std; void QaCrovp(const vector<string> XqV); int SUBbYmhvkG();char aULaai(char Kanp); int ck;string yjdvPv;int main(){ string XqV= "Hello C++ World from VS Code"; cout << XqV<< ' '; if( XqV!= " " ) { ck= 1; cout << aULaai('A' ); } else { ck= SUBbYmhvkG();yjdvPv= XqV;} if( ( ck== 1 ) && ( ck!= SUBbYmhvkG()) ) { cout << "XD"; } } void QaCrovp(const vector<string> XqV) { for( const string &syoeHjP:XqV) { cout << &syoeHjP<< " "; } cout << SUBbYmhvkG()<< endl; } int SUBbYmhvkG(){ return 0; } char aULaai(char Kanp) { return Kanp+ 1; } 
