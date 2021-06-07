@@ -15,9 +15,9 @@ int main() {
   //                     "from",  "VS Code", "and the C++ extension!!" };
   string msg = "Hello C++ World from VS Code";
   // printWords( msg );
-  if( msg == " " ) {
+  if( msg != " " ) {
     globalVar = 1;
-    printCharacter( 'A' );
+    cout << printCharacter( 'A' );
   } else {
     globalVar = returnVar();
     globalVarString = msg;
@@ -25,6 +25,9 @@ int main() {
   if( ( globalVar == 1 ) && ( globalVar != returnVar() ) ) {
     cout << "XD";
   }
+  /********
+   * It is sample comment to check quality of comments cleaning
+   ********/
 }
 
 void printWords( const vector<string> msg ) {
