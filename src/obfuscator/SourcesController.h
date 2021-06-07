@@ -42,12 +42,10 @@ public:
   void writeWord( std::string word );
 
   void loadStringStream();
-
+  std::string getOutput() { return targetStream.str(); }
   void operator=( const SourcesController &src ) {
     sourceName = src.sourceName;
     targetName = src.targetName;
-    std::cout << "SOURCE\n" << src.sourceStream.str() << std::endl << std::endl;
-    std::cout << src.targetStream.str() << std::endl << std::endl;
     sourceStream << src.sourceStream.str();
     targetStream << src.targetStream.str();
   }

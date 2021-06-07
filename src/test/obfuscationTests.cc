@@ -1,3 +1,4 @@
+#include "../obfuscator/CommentsCleaner.h"
 #include "../obfuscator/FilesCompiler.h"
 #include "../obfuscator/NOPInjector.h"
 #include "../obfuscator/NamesChanger.h"
@@ -12,8 +13,8 @@ using ::testing::Test;
 class obfuscationTests : public Test {
 protected:
   void SetUp() override {
-    testFile = "../../../src/test/testFile.cc";
-    targetFile = "../../../src/test/dumpTestFile.cc";
+    testFile = "../../../src/test/testFiles/testFile.cc";
+    targetFile = "../../../src/test/testFiles/dumpTestFile.cc";
     obf = new Obfuscator( testFile, targetFile );
   }
   Obfuscator *obf;
@@ -97,8 +98,17 @@ TEST_F( obfuscationTests, trigraph_sequences_injector ) {
   // ASSERT_FALSE( triSecInj.findReplacements() );
   ASSERT_TRUE( true );
 }
+TEST_F( obfuscationTests, comments_cleaner ) {
 
-// Very last test (deletes Obfuscator)
+  CommentsCleaner cleaner(
+  "../../../src/test/testFiles/commentsTest.cc",
+  "../../../src/test/testFiles/commentsTestOutput.cc" );
+  cleaner.init();
+  cleaner.cleanComments();
+  cleaner.close();
+  ASSERT_EQ( "int main() {} ", cleaner.getOutput() );
+
+}          // Very last test (deletes Obfuscator)
 TEST_F( obfuscationTests, compile_target_file ) {
   NamesChanger changer( testFile, targetFile );
   obf = &changer;

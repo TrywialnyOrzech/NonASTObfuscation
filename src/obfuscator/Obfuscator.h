@@ -24,6 +24,7 @@ public:
   virtual void cleanComments() {}
   void reload();
   void close();
+  std::string getOutput() { return src.getOutput(); }
 
 protected:
   SourcesController src;

@@ -1,2 +1,0 @@
-#include <iostream>#include
-<string>#include <vector>using namespace std;void printWords( const vector<string> XIDLEFxOXg);int main() { vector<string> Tjgy{"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!!" }; printWords( Tjgy);}void printWords( const vector<string> Tjgy) { for( const string &YRTowYdnZU:Tjgy) { cout << &YRTowYdnZU<< " "; } cout << endl;} 
