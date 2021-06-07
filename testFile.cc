@@ -15,6 +15,7 @@ int main() {
   //                     "from",  "VS Code", "and the C++ extension!!" };
   string msg = "Hello C++ World from VS Code";
   // printWords( msg );
+  cout << msg << ' ';
   if( msg != " " ) {
     globalVar = 1;
     cout << printCharacter( 'A' );

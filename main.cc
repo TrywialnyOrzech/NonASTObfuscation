@@ -72,10 +72,10 @@ int main( int argc, char **argv ) {
   // // const char *source = x.c_str();
   // // const char *target = y.c_str();
   // // obfuscator->rateCodeLength( source, target );
-  // IfConditionChanger ifConditionChanger( *obfuscator );
-  // // obfuscator = &ifConditionChanger;
-  // // obfuscator->reload();
-  // // obfuscator->rebuildIfStatement();
+  IfConditionChanger ifConditionChanger( *obfuscator );
+  obfuscator = &ifConditionChanger;
+  obfuscator->reload();
+  obfuscator->rebuildIfStatement();
   obfuscator->close();
   return 0;
 }

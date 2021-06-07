@@ -7,16 +7,20 @@ void IfConditionChanger::rebuildIfStatement() {
   regex ifRegex( "if\\(" );
   smatch m;
   while( src.readWord( &code ) ) {
-    string condition;
-    string ifInstructions;
-    string elseInstructions;
-    if( regex_match( code, m, ifRegex ) ) {
-      condition = searchForCondition();
-      cout << "!!!!!! " << condition << endl;
-      if( condition.rfind( ")" ) != string::npos ) {
-        condition.pop_back();
+    if( !saveIncludes( code ) ) {
+      string condition;
+      string ifInstructions;
+      string elseInstructions;
+      if( regex_match( code, m, ifRegex ) ) {
+        // condition = searchForCondition();
+        cout << "!!!!!! " << condition << endl;
+        if( condition.rfind( ")" ) != string::npos ) {
+          condition.pop_back();
+        }
+        cout << "!!!!!! " << condition << endl;
       }
-      cout << "!!!!!! " << condition << endl;
+      src.writeWord( code );
+      src.writeWord( " " );
     }
   }
 }
