@@ -5,8 +5,8 @@ using namespace std;
 bool FilesCompiler::fileCompilation( string filename ) {
 #ifdef _WIN32
   string systemCall( "gcc " + filename );
-#endif
-#ifdef linux
+
+#else
   string systemCall( "g++ " + filename );
 #endif
   if( system( systemCall.c_str() ) != 0 )

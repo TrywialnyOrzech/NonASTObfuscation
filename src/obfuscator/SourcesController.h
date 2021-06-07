@@ -28,6 +28,7 @@ public:
   }
   void printState( std::string text );
   void setOriginalFilePath( std::string path );
+  std::string getOriginalStream();
 
   void setTargetFilePath( std::string path );
 

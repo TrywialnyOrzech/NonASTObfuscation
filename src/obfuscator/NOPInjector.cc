@@ -12,12 +12,6 @@ void NOPInjector::randomNoGen() {
 }
 
 bool NOPInjector::findFuncDefinitions() {
-  // get target file contents to string (to fix)
-  // string code =
-  // "#include <iostream>\n\n int main() {\nint xsowy = 12;\nfloat "
-  // "ygrekowy = 3.33;\ny=2.4;\nx = 4;\n"
-  // "return 0;\n}\n\nvoid sayHello() {\nstd::cout << \"Hello\" << "
-  // "std::endl;\n}\nfloat compute(int x) {\nfloat z = 2.53*x;\nreturn z;\n}";
   string code = src.readWholeFile( READSOURCE );
   const regex functionsReg(
   "(bool||char||double||float||int||long||short||void)[ "
@@ -33,12 +27,6 @@ bool NOPInjector::findFuncDefinitions() {
 }
 
 bool NOPInjector::findVarDefinitions() {
-  // get target file contents to string (to fix)
-  // string code =
-  // "#include <iostream>\n\n int main() {\nint xsowy = 12;\nfloat "
-  // "ygrekowy = 3.33;\ny=2.4;\nx = 4;\n"
-  // "return 0;\n}\n\nvoid sayHello() {\nstd::cout << \"Hello\" << "
-  // "std::endl;\n}\nfloat compute(int x) {\nfloat z = 2.53*x;\nreturn z;\n}";
   string code = src.readWholeFile( READSOURCE );
   const regex varReg(
   "(bool||char||double||float||int||long||short||void)[ ][a-zA-Z]+[ ](=)[ "
@@ -68,14 +56,7 @@ vector<string> NOPInjector::findRegexMatches( string str, regex reg ) {
 }
 
 bool NOPInjector::findPositions( bool choice ) {
-
   string code = src.readWholeFile( READSOURCE );
-  // get target file contents to string (to fix)
-  // string code =
-  // "#include <iostream>\n\n int main() {\nint xsowy = 12;\nfloat "
-  // "ygrekowy = 3.33;\ny=2.4;\nx = 4;\n"
-  // "return 0;\n}\n\nvoid sayHello() {\nstd::cout << \"Hello\" << "
-  // "std::endl;\n}\nfloat compute(int x) {\nfloat z = 2.53*x;\nreturn z;\n}";
   vector<size_t> positions;
   int bypass = 0;
   if( choice ) {
@@ -104,21 +85,11 @@ bool NOPInjector::findPositions( bool choice ) {
       bypass = positions[i];
     }
     varPositions = positions;
-    for( int i = 0; i < positions.size(); ++i ) {
-      cout << "DUPSKOOOO" << endl;
-      cout << positions[i] << endl;
-    }
   }
   return 0;
 }
 
 bool NOPInjector::injectForLoops() {
-  // get target file contents to string (to fix)
-  // string code =
-  // "#include <iostream>\n\n int main() {\nint xsowy = 12;\nfloat "
-  // "ygrekowy = 3.33;\ny=2.4;\nx = 4;\n"
-  // "return 0;\n}\n\nvoid sayHello() {\nstd::cout << \"Hello\" << "
-  // "std::endl;\n}\nfloat compute(int x) {\nfloat z = 2.53*x;\nreturn z;\n}";
   string code = src.readWholeFile( READSOURCE );
 
   size_t offset =
@@ -136,6 +107,7 @@ bool NOPInjector::injectForLoops() {
     code.replace( funcPositions[i] + offset, foundFunctions[i].length(),
                   foundFunctions[i] + forLoopStr );
   }
+  src.writeWord( code );
   return 0;
 }
 
@@ -146,12 +118,6 @@ bool NOPInjector::injectZeros() {
          << endl;
     exit( 1 );
   }
-  // get target file contents to string (to fix)
-  // string code =
-  // "#include <iostream>\n\n int main() {\nint xsowy = 12;\nfloat "
-  // "ygrekowy = 3.33;\ny=2.4;\nx = 4;\n"
-  // "return 0;\n}\n\nvoid sayHello() {\nstd::cout << \"Hello\" << "
-  // "std::endl;\n}\nfloat compute(int x) {\nfloat z = 2.53;\nreturn z;\n}";
   string code = src.readWholeFile( READSOURCE );
   string zero = " + 0";
   size_t offset = 0;
@@ -170,6 +136,7 @@ bool NOPInjector::injectZeros() {
                     foundVars[i] + zero );
     }
   }
+  src.writeWord( code );
   return 0;
 }
 
@@ -178,4 +145,21 @@ int NOPInjector::getRandomValues( bool choice ) {
     return randomX;
   else
     return randomY;
+}
+
+void NOPInjector::runNOPInjector() {
+  if( findFuncDefinitions() ) {
+    cerr << "No functions definitions found" << endl;
+    exit( 1 );
+  }
+  src.reload();
+  findPositions( 1 );
+  src.reload();
+  injectForLoops();
+  src.reload();
+  findVarDefinitions();
+  src.reload();
+  findPositions( 0 );
+  src.reload();
+  injectZeros();
 }

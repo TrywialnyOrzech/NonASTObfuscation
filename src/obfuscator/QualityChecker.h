@@ -7,7 +7,7 @@ class QualityChecker : public Obfuscator {
 public:
   QualityChecker( Obfuscator &obf ) : Obfuscator( obf ) {}
   void loadFileContent();
-  int rateCodeLength( char const *source, char const *target );
+  virtual int rateCodeLength();
 };
 
 #endif

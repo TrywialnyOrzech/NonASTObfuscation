@@ -58,13 +58,16 @@ bool SourcesController::readLine( string *word, bool ifTarget = false ) {
   string temp;
   if( ifTarget ) {
     do {
-      getline( targetStream, temp );
+      if( !getline( targetStream, temp ) )
+        return false;
+
       *word += temp;
     } while( temp != "\n" );
     return true;
   } else {
     do {
-      getline( sourceStream, temp );
+      if( !getline( sourceStream, temp ) )
+        return false;
       *word += temp;
     } while( temp.find( "\n" ) != string::npos );
     return true;
@@ -89,3 +92,5 @@ string SourcesController::readWholeFile( bool ifTarget = false ) {
     return targetStream.str();
   }
 }
+
+string SourcesController::getOriginalStream() { return originalStream.str(); }

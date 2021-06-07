@@ -15,6 +15,9 @@ public:
   ~Obfuscator() {}
   virtual void changeVariablesNames() {}
   virtual void changeFunctionNames() {}
+  virtual void runNOPInjector(){}
+  virtual void runTrigraphSequencesInjector(){}
+  virtual int rateCodeLength(){ return -1; }
   virtual void fileCompilation() {}
   virtual bool initialCompilation() { return false; }
   virtual void init();
