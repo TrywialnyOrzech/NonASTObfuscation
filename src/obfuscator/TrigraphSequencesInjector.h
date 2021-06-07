@@ -12,7 +12,7 @@ class TrigraphSequencesInjector : public Obfuscator {
   std::vector<std::size_t> foundPositions;
 
 public:
-  TrigraphSequencesInjector( Obfuscator obf ) : Obfuscator( obf ) {}
+  TrigraphSequencesInjector( Obfuscator &obf ) : Obfuscator( obf ) {}
 
   std::vector<std::string> findRegexMatches( std::string str, std::regex reg );
   bool findReplacements();

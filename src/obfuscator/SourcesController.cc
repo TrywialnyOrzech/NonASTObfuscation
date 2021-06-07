@@ -17,9 +17,9 @@ void SourcesController::reload() {
   // targetFile.seekg( 0, ios::beg );
   // loadSourceFile( sourceName );
   // targetFile.open( targetName, fstream::in | fstream::out );
-  editStream.clear();
-  editStream << targetStream.str();
-  targetStream.clear();
+  sourceStream.str( string() );
+  sourceStream << targetStream.str();
+  loadTargetFile( targetName );
 }
 
 void SourcesController::loadSourceFile( const string &name ) {
@@ -53,7 +53,7 @@ string SourcesController::getOriginalFilePath() { return sourceName; }
 string SourcesController::getTargetFilePath() { return targetName; }
 
 bool SourcesController::readWord( string *word ) {
-  if( editStream >> *word )
+  if( sourceStream >> *word )
     return true;
   else {
     return false;
@@ -61,12 +61,19 @@ bool SourcesController::readWord( string *word ) {
 }
 
 bool SourcesController::readLine( string *word, bool ifTarget = false ) {
+  string temp;
   if( ifTarget ) {
-    if( getline( targetStream, *word ) )
-      return true;
+    do {
+      getline( targetStream, temp );
+      *word += temp;
+    } while( temp != "\n" );
+    return true;
   } else {
-    if( getline( sourceFile, *word ) )
-      return true;
+    do {
+      getline( sourceStream, temp );
+      *word += temp;
+    } while( temp.find( "\n" ) != string::npos );
+    return true;
   }
   return false;
 }
@@ -76,6 +83,14 @@ void SourcesController::writeWord( string word ) { targetStream << word; }
 void SourcesController::loadStringStream() {
   string line;
   while( getline( sourceFile, line ) ) {
-    editStream << line;
+    sourceStream << line << "\n";
+  }
+}
+
+string SourcesController::readWholeFile( bool ifTarget = false ) {
+  if( !ifTarget ) {
+    return sourceStream.str();
+  } else {
+    return targetStream.str();
   }
 }

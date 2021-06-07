@@ -1,4 +1,30 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std; void bNl(const vector<string> bQO); int Cec();char IBkLfuvnuE(char L); int tdxYvLibW;string HiKbk;int main(){ // vector<string> gXr{"Hello", "C++", "World", // "from", "VS Code", "and the C++ extension!!" }; string gXr= "Hello C++ World from VS Code"; //printWords( gXr); } void bNl(const vector<string> gXr) { for( const string &PTPvPAfPj:gXr) { cout << &PTPvPAfPj<< " "; } cout << Cec()<< endl; } int Cec(){ return 0; } char IBkLfuvnuE(char L) { return L+ 1; } 
+using namespace std;
+void printWords( const vector<string> msg );
+int returnVar();
+char printCharacter( char c );
+int globalVar;
+string globalVarString;
+int main() {
+  string msg = "Hello C++ World from VS Code";
+  if( msg == " " ) {
+    globalVar = 1;
+    printCharacter( 'A' );
+  } else {
+    globalVar = returnVar();
+    globalVarString = msg;
+  }
+  if( ( globalVar == 1 ) && ( globalVar != returnVar() ) ) {
+    cout << "XD";
+  }
+}
+void printWords( const vector<string> msg ) {
+  for( const string &word: msg ) {
+    cout << word << " ";
+  }
+  cout << returnVar() << endl;
+}
+int returnVar() { return 0; }
+char printCharacter( char c ) { return c + 1; }

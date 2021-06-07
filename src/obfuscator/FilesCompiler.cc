@@ -9,6 +9,13 @@ bool FilesCompiler::fileCompilation( string filename ) {
   else
     return true;
 }
+bool FilesCompiler::fileFormatting( string filename ) {
+  string systemCall( "clang-format -i " + filename );
+  if( system( systemCall.c_str() ) != 0 )
+    return false;
+  else
+    return true;
+}
 
 bool FilesCompiler::initialCompilation() {
   src.printState( "Compiling source file..." );
@@ -19,6 +26,13 @@ bool FilesCompiler::initialCompilation() {
     return false;
   } else {
     cout << "   Compilation successful" << endl << endl;
+    src.printState( "Formatting source file..." );
+    if( !fileFormatting( src.getOriginalFilePath() ) ) {
+      cerr << "Formattin of source file failed! Exitting.." << endl;
+      return false;
+    } else {
+      cout << "   Formatting successful" << endl << endl;
+    }
     return true;
   }
 }

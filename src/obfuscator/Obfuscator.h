@@ -20,11 +20,16 @@ public:
   virtual void init();
   virtual void loadFileContent(){};
   virtual int rateCodeLength( char const *, char const * ) { return false; };
+  virtual void rebuildIfStatement() {}
+  virtual void cleanComments() {}
   void reload();
   void close();
+  std::string getOutput() { return src.getOutput(); }
 
 protected:
   SourcesController src;
+  const bool READSOURCE = false;
+  const bool READTARGET = true;
 };
 
 #endif
