@@ -34,20 +34,21 @@ int main( int argc, char **argv ) {
     obfuscator->init();
     obfuscator->cleanComments();
   }
-  // // Add NOP equivalents
-  // NOPInjector nopInjector( *obfuscator );
-  // obfuscator = &nopInjector;
-  // obfuscator->reload();
-  // obfuscator->loadFileContent();
-  // if( nopInjector.findFuncDefinitions() ) {
-  //   cerr << "No functions definitions found" << endl;
-  //   exit( 1 );
-  // }
-  // nopInjector.findPositions( 1 );
-  // nopInjector.injectForLoops();
-  // nopInjector.findVarDefinitions();
-  // nopInjector.findPositions( 0 );
-  // nopInjector.injectZeros();
+
+  // Add NOP equivalents
+  NOPInjector nopInjector( *obfuscator );
+  obfuscator = &nopInjector;
+  obfuscator->reload();
+  obfuscator->loadFileContent(); // przepnij bo to twoja metoda
+  if( nopInjector.findFuncDefinitions() ) {
+    cerr << "No functions definitions found" << endl;
+    exit( 1 );
+  }
+  nopInjector.findPositions( 1 );
+  nopInjector.injectForLoops();
+  nopInjector.findVarDefinitions();
+  nopInjector.findPositions( 0 );
+  nopInjector.injectZeros();
   // // Erase spaces and new line chars (TODO)
   // // Change variable's and function's names
   NamesChanger namesChanger( *obfuscator );
@@ -58,20 +59,23 @@ int main( int argc, char **argv ) {
   // // // Add escape sequences (TODO)
   // // // Add ?: operator (TODO)
   // // // Add trigraph sequences
-  // // TrigraphSequencesInjector triSeqInjector( *obfuscator );
-  // // triSeqInjector.findReplacements();
-  // // triSeqInjector.findPositions();
-  // // triSeqInjector.injectTrigraphSequences();
+  TrigraphSequencesInjector triSeqInjector( *obfuscator );
+  obfuscator = &triSeqInjector;
+  obfuscator->reload();
+  triSeqInjector.findReplacements();
+  triSeqInjector.findPositions();
+  triSeqInjector.injectTrigraphSequences();
   // // // Check code quality
-  // // QualityChecker qualityChecker( *obfuscator );
-  // // obfuscator = &qualityChecker;
-  // // obfuscator->reload();
-  // // // obfuscator->loadFileContent();
-  // // string x = "1234567890";
-  // // string y = "12345678901";
-  // // const char *source = x.c_str();
-  // // const char *target = y.c_str();
-  // // obfuscator->rateCodeLength( source, target );
+  QualityChecker qualityChecker( *obfuscator );
+  obfuscator = &qualityChecker;
+  obfuscator->reload();
+  obfuscator->loadFileContent();
+  string x = "1234567890";
+  string y = "12345678901";
+  const char *source = x.c_str();
+  const char *target = y.c_str();
+  obfuscator->rateCodeLength( source, target );
+
   IfConditionChanger ifConditionChanger( *obfuscator );
   obfuscator = &ifConditionChanger;
   obfuscator->reload();
