@@ -19,6 +19,7 @@ void SourcesController::reload() {
   // targetFile.open( targetName, fstream::in | fstream::out );
   sourceStream.str( string() );
   sourceStream << targetStream.str();
+  targetStream.str( string() );
   loadTargetFile( targetName );
 }
 

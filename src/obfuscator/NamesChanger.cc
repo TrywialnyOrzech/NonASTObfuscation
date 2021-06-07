@@ -12,7 +12,6 @@ using namespace std;
 void NamesChanger::changeVariablesNames() {
   srand( (unsigned)time( NULL ) );
   string code;
-
   set<string> keyVariableWords{ "int",  "float",       "string", "short",
                                 "long", "double",      "char",   "bool",
                                 "void", "vector<\\w+>" };
@@ -27,8 +26,8 @@ void NamesChanger::changeVariablesNames() {
 
       if( !ifDuplicate( &code ) ) {
         if( regex_match( code, m, varRegex ) ) {
-          catchVariable = true;
           int ending = Endings::none;
+          catchVariable = true;
           string nextLine = "";
           src.readWord( &nextLine );
           if( !ifDuplicate( &nextLine ) ) {
@@ -89,12 +88,18 @@ void NamesChanger::changeVariablesNames() {
   }
 }
 bool NamesChanger::ifDuplicate( string *name ) {
+  int addSemicolon = 0;
+  clearAndTagEnding( 1, ';', name, &addSemicolon );
   for( auto i = variables.begin(); i != variables.end(); ++i ) {
     if( name->compare( i->first ) == 0 ) {
       *name = i->second;
+      if( addSemicolon == 1 )
+        name->push_back( ';' );
       return true;
     }
   }
+  if( addSemicolon == 1 )
+    name->push_back( ';' );
   return false;
 }
 
