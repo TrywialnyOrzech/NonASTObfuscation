@@ -1,30 +1,4 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
-void printWords( const vector<string> msg );
-int returnVar();
-char printCharacter( char c );
-int globalVar;
-string globalVarString;
-int main() {
-  string msg = "Hello C++ World from VS Code";
-  if( msg == " " ) {
-    globalVar = 1;
-    printCharacter( 'A' );
-  } else {
-    globalVar = returnVar();
-    globalVarString = msg;
-  }
-  if( ( globalVar == 1 ) && ( globalVar != returnVar() ) ) {
-    cout << "XD";
-  }
-}
-void printWords( const vector<string> msg ) {
-  for( const string &word: msg ) {
-    cout << word << " ";
-  }
-  cout << returnVar() << endl;
-}
-int returnVar() { return 0; }
-char printCharacter( char c ) { return c + 1; }
+using namespace std; void QaCrovp(const vector<string> XqV); int SUBbYmhvkG();char aULaai(char Kanp); int ck;string yjdvPv;int main(){ string XqV= "Hello C++ World from VS Code"; cout << XqV<< ' '; if( XqV!= " " ) { ck= 1; cout << aULaai('A' ); } else { ck= SUBbYmhvkG();yjdvPv= XqV;} if( ( ck== 1 ) && ( ck!= SUBbYmhvkG()) ) { cout << "XD"; } } void QaCrovp(const vector<string> XqV) { for( const string &syoeHjP:XqV) { cout << &syoeHjP<< " "; } cout << SUBbYmhvkG()<< endl; } int SUBbYmhvkG(){ return 0; } char aULaai(char Kanp) { return Kanp+ 1; } 

@@ -1,3 +1,4 @@
+// Author: Lukasz Stojke
 #ifndef NamesChanger_H
 #define NamesChanger_H
 

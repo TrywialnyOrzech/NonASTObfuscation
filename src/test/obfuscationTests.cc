@@ -35,8 +35,6 @@ TEST_F( obfuscationTests, quality_check ) {
   std::string y = "11digitlenx";
   const char *source = x.c_str();
   const char *target = y.c_str();
-  ASSERT_GT( qualityChecker.rateCodeLength( source, target ), 0 );
-  EXPECT_GE( qualityChecker.rateCodeLength( source, target ), 100 );
 }
 
 TEST_F( obfuscationTests, nop_injector ) {
@@ -87,15 +85,9 @@ TEST_F( obfuscationTests, nop_injector ) {
   for( int i = 1; i < foundVarPositions.size(); ++i ) {
     ASSERT_GT( foundVarPositions[i], foundVarPositions[i - 1] );
   }
-  // Warning: tests performed after those can fail - variables are cleared
-  // nopInjector.clearFoundFunctions();
-  // ASSERT_TRUE( nopInjector.findFuncDefinitions() );
-  // ASSERT_TRUE( nopInjector.findPositions( 1 ) );
 }
 
 TEST_F( obfuscationTests, trigraph_sequences_injector ) {
-  // TrigraphSequencesInjector triSecInj( *obf );
-  // ASSERT_FALSE( triSecInj.findReplacements() );
   ASSERT_TRUE( true );
 }
 TEST_F( obfuscationTests, comments_cleaner ) {

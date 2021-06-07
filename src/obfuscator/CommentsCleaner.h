@@ -1,3 +1,4 @@
+// Author: Lukasz Stojke
 #ifndef COMMENTSCLEANER_H
 #define COMMENTSCLEANER_H
 

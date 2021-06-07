@@ -19,9 +19,7 @@ vector<string> TrigraphSequencesInjector::findRegexMatches( string str,
 }
 
 bool TrigraphSequencesInjector::findReplacements() {
-  // get target file contents to string (to fix)
-  string code = "#includ[e <iostream>\nusing namespace std;\n\nint main() "
-                "{\nint x[4];\n// ZNAK ^\n//ZNAK |\n //ZNAK ~\n}";
+  string code = src.readWholeFile( READSOURCE );
   const regex triSeqReg( "(\\[|\\]|\\{|\\}|#|\\^|\\||~)" );
   foundReplacements = findRegexMatches( code, triSeqReg );
   cout << "TRIGRAPH SEQ" << endl;
@@ -32,9 +30,7 @@ bool TrigraphSequencesInjector::findReplacements() {
 }
 
 bool TrigraphSequencesInjector::findPositions() {
-  // get target file contents to string (to fix)
-  string code = "#includ[e <iostream>\nusing namespace std;\n\nint main() "
-                "{\nint x[4];\n// ZNAK ^\n//ZNAK |\n //ZNAK ~\n}";
+  string code = src.readWholeFile( READSOURCE );
   int bypass = 0;
   if( foundReplacements.size() == 0 ) {
     cerr << "foundReplacements vector is empty. Perhaps findReplacements() "
@@ -47,23 +43,17 @@ bool TrigraphSequencesInjector::findPositions() {
     foundPositions.push_back( code.find( func, bypass ) );
     bypass = foundPositions[i];
   }
-  cout << "Znalezione pozycje to: " << endl;
-  for( int i = 0; i < foundPositions.size(); ++i ) {
-    cout << foundPositions[i] << endl;
-  }
   return 0;
 }
 
 bool TrigraphSequencesInjector::injectTrigraphSequences() {
-  // get target file contents to string (to fix)
-  string code = "#includ[e <iostream>\nusing namespace std;\n\nint main() "
-                "{\nint x[4];\n// ZNAK ^\n//ZNAK |\n //ZNAK ~\n}";
+  string code = src.readWholeFile( READSOURCE );
   size_t offset = 0;          // offset for increased functions positions while
                               // adding trigraph sequences
   const int trigraphSequenceLength = 3;
   const int replacementLength = 1;
   for( int i = 0; i < foundPositions.size(); ++i ) {
-    offset = ( size_t )( (trigraphSequenceLength-1) * i );
+    offset = ( size_t )( ( trigraphSequenceLength - 1 ) * i );
     string replacementStr = foundReplacements[i];
     char replacement = replacementStr[0];
     switch( replacement ) {
@@ -98,6 +88,14 @@ bool TrigraphSequencesInjector::injectTrigraphSequences() {
       break;
     }
   }
-  cout << code << endl;
+  src.writeWord( code );
   return 0;
+}
+
+void TrigraphSequencesInjector::runTrigraphSequencesInjector() {
+  findReplacements();
+  src.reload();
+  findPositions();
+  src.reload();
+  injectTrigraphSequences();
 }

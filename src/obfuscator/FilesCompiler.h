@@ -1,3 +1,4 @@
+// Author: Lukasz Stojke
 #ifndef FilesCompiler_H
 #define FilesCompiler_H
 

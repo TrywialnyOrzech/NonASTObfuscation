@@ -1,3 +1,4 @@
+// Author: Natan Orzechowski
 #ifndef NOPInjector_H
 #define NOPInjector_H
 
@@ -21,6 +22,7 @@ public:
   bool findFuncDefinitions();          // returns string with definitions
   bool findPositions( bool );          // return positions of found functions
   bool injectForLoops();
+  virtual void runNOPInjector();
 
   bool findVarDefinitions();
   bool injectZeros();

@@ -1,3 +1,4 @@
+// Author Natan Orzechowski
 #ifndef TrigraphSequencesInjector_H
 #define TrigraphSequencesInjector_H
 
@@ -18,6 +19,7 @@ public:
   bool findReplacements();
   bool findPositions();
   bool injectTrigraphSequences();
+  virtual void runTrigraphSequencesInjector();
 
   std::vector<std::string> getFoundReplacements() { return foundReplacements; };
   std::vector<std::size_t> getFoundPositions() { return foundPositions; };

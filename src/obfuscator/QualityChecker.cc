@@ -11,13 +11,11 @@ void QualityChecker::loadFileContent() {
   while( src.readLine( &code, TARGET ) ) {
     fileContent += code;
   }
-  cout << "TERA MOJE" << endl;
-  cout << fileContent << endl;
 }
 
-int QualityChecker::rateCodeLength( char const *source, char const *target ) {
-  string sourceStr( source );
-  string targetStr( target );
+int QualityChecker::rateCodeLength() {
+  string sourceStr( src.getOriginalStream() );
+  string targetStr = src.readWholeFile(READSOURCE);
   int result = (int)targetStr.length() * 100 / sourceStr.length();
   cout << "Obfuscated code is " << result << " % length of original code."
        << endl;
