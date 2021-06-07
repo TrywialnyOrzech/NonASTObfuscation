@@ -1,3 +1,4 @@
+// Author: Lukasz Stojke
 #ifndef IFCONDITIONCHANGER_H
 #define IFCONDITIONCHANGER_H
 

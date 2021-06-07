@@ -1,3 +1,4 @@
+// Author: Natan Orzechowski
 #ifndef NOPInjector_H
 #define NOPInjector_H
 

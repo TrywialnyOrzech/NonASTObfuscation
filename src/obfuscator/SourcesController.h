@@ -1,3 +1,4 @@
+// Author: Lukasz Stojke
 #ifndef SOURCESCONTROLLER_H
 #define SOURCESCONTROLLER_H
 

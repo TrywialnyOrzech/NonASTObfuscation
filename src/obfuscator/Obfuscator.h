@@ -1,3 +1,4 @@
+// Author: Lukasz Stojke
 #ifndef Obfuscator_H
 #define Obfuscator_H
 

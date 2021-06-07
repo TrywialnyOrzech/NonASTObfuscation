@@ -1,3 +1,4 @@
+// Author: Natan Orzechowski
 #ifndef QualityChecker_H
 #define QualityChecker_H
 

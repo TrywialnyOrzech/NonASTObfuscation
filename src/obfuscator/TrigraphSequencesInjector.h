@@ -1,3 +1,4 @@
+// Author Natan Orzechowski
 #ifndef TrigraphSequencesInjector_H
 #define TrigraphSequencesInjector_H
 
